@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BLRST Restaurant</title>
+</head>
+<body>
+	<h1> Restaurant Menu </h1><br>
+	{% if items %}
+		<table>
+		<tr><th>Appetizers</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == 'Appetizers' %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		<tr><th>Soups and Salads</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == 'Soups and Salads' %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		<tr><th>Entrees</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == 'Entrees' %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		<tr><th>Seafood</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == 'Seafood' %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		<tr><th>Kid's Menu</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == "Kid's Menu" %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		<tr><th>Desserts</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == 'Desserts' %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		<tr><th>Drinks</th><th></th></tr>
+		{% for item in items %}
+			{% if item.course_type == 'Drinks' %}
+			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+			{% endif %}
+		{% endfor %}
+		</table>
+	{% else %}
+		<h3>Select your query:</h3>
+		<ul>
+			<li><a href="/menu/query/all">Entire Menu</a></li>
+			<li><a href="/menu/query/vegetarian">Vegetarian Menu</a></li>
+			<li><a href="/menu/query/lactosefree">Lactose-Free Menu</a></li>
+			<li><a href="/menu/query/glutenfree">Gluten-Free Menu</a></li>
+			<li><a href="/menu/query/eggfree">Egg-Free Menu</a></li>
+			<li><a href="/menu/query/seafoodfree">Seafood-Free Menu</a></li>
+			<li><a href="/menu/query/vegan">Vegan Menu</a></li>
+		</ul>
+	{% endif %}
+</body>
+</html>

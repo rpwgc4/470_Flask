@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BLRST Restaurant</title>
+</head>
+<body>
+	<h1> Restaurant Staff </h1><br>
+	{% if staff %}
+		<table>
+		{% if qtype == 'all' %}
+			<tr><th>Employee Name</th><th>Position</th><th>Hourly Wage</th></tr>
+		{% elif qtype == 'employeeofthequarter' %}
+			<tr><th>Year</th><th>Quarter</th><th>Employee Name</th><th>Hours Worked</th></tr>
+		{% elif qtype == 'annualwages' %}
+			<tr><th>Employee Name</th><th>Position</th><th>Annual Salary</th></tr>
+		{% elif qtype == 'positionstats' %}
+			<tr><th>Year</th><th>Position</th><th>Hours Per Week</th><th>Amount Paid</th></tr>
+		{% endif %}
+		{% for person in staff %}
+			<tr>
+			{% if person.year %}
+				<td> {{ person.year }} </td>
+			{% endif %}
+			{% if person.quart_num %}
+				<td> {{ person.quart_num }} </td>
+			{% endif %}
+			{% if person.f_name%}
+				<td>{{ person.f_name }} {{ person.l_name }}</td>
+			{% endif %}
+			{% if person.position %}
+				<td> {{ person.position }} </td>
+			{% endif %}
+			{% if person.weekly_hours %}
+				<td> {{ person.weekly_hours }} </td>
+			{% endif %}
+			{% if person.hours_in_quarter %}
+				<td> {{ person.hours_in_quarter }} </td>
+			{% endif %}
+			{% if person.hourly_wage %}
+				<td> {{ "$%.2f"|format(person.hourly_wage) }} </td>
+			{% endif %}
+			{% if person.annual_salary %}
+				<td> {{ "$%.2f"|format(person.annual_salary) }} </td>
+			{% endif %}
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<h3>Select your query:</h3>
+		<ul>
+			<li><a href="/staff/query/all">All Staff</a></li>
+			<li><a href="/staff/query/employeeofthequarter">Employee of the Quarter Awards</a></li>
+			<li><a href="/staff/query/annualwages">Staff Annual Income</a></li>
+			<li><a href="/staff/query/positionstats">Position Statistics</a></li>
+		</ul>
+	{% endif %}
+</body>
+</html>

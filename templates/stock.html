@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BLRST Restaurant</title>
+</head>
+<body>
+	<h1> Restaurant Stock </h1><br>
+	{% if stock %}
+		<table>
+		{% if qtype == 'all' %}
+			<tr><th>StockItem</th><th>Supplier</th><th>Price</th></tr>
+		{% elif qtype == 'averageorders' %}
+			<tr><th>Stock Item</th><th>Average Quantity</th><th>Average Purchase</th></tr>
+		{% elif qtype == 'numdishes' %}
+			<tr><th>Stock Item</th><th>Supplier</th><th>Number of Dishes</th></tr>
+		{% elif qtype == 'supplierbreakdown' %}
+			<tr><th>Supplier</th><th>Num Stock Items</th><th>Total Purchases</th></tr>
+		{% endif %}	
+		{% for item in stock %}
+			<tr>
+			{% if item.stock_name %}
+				<td>{{ item.stock_name }}</td>
+			{% endif %}
+			{% if item.supplier %}
+				<td>{{ item.supplier }}</td>
+			{% endif %}
+			{% if item.cost %}
+				<td>{{ "$%.2f"|format(item.cost) }}</td>
+			{% endif %}
+			{% if item.num_items %}
+				<td>{{ item.num_items }}</td>
+			{% endif %}
+			{% if item.qty %}
+				<td>{{ item.qty }}</td>
+			{% endif %}
+			{% if item.total %}
+				<td>{{ "$%.2f"|format(item.total) }}</td>
+			{% endif %}
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<h3>Select your query:</h3>
+		<ul>
+			<li><a href="/stock/query/all">All Stock Items</a></li>
+			<li><a href="/stock/query/averageorders">Average Weekly Order</a></li>
+			<li><a href="/stock/query/numdishes">Stock Items by Dishes Used</a></li>
+			<li><a href="/stock/query/supplierbreakdown">Supplier Breakdown</a></li>
+		</ul>
+	{% endif %}
+</body>
+</html>
