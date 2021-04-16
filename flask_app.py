@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import pyodbc
+import re
 
 app = Flask(__name__)
 
@@ -46,10 +47,14 @@ def menuquery(querytype):
         menu_items = [None]
     return render_template('menu.html', items=menu_items)
 
-@app.route("/menu/search/<string:param>/<string:search>")
-def menusearch(param, search):
+@app.route("/menu/search/<string:param>/<string:dbsearch>")
+def menusearch(param, dbsearch):
+    if re.search("[^a-zA-Z ]", dbsearch):
+        return render_template("invalidsearch.html", message="Invalid Search")
     if param == 'item':
-        menu_items = querydb("SELECT * FROM MenuItem WHERE menu_name LIKE '%" + search + "%';")
+        menu_items = querydb("SELECT * FROM MenuItem WHERE menu_name LIKE '%" + dbsearch + "%';")
+        if not menu_items:
+            return render_template("invalidsearch.html", message="No Results Returned")
     return render_template('menu.html', items=menu_items)
 
 @app.route("/staff")
