@@ -10,43 +10,71 @@
 		<tr><th>Appetizers</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == 'Appetizers' %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		<tr><th>Soups and Salads</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == 'Soups and Salads' %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		<tr><th>Entrees</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == 'Entrees' %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		<tr><th>Seafood</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == 'Seafood' %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		<tr><th>Kid's Menu</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == "Kid's Menu" %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		<tr><th>Desserts</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == 'Desserts' %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		<tr><th>Drinks</th><th></th></tr>
 		{% for item in items %}
 			{% if item.course_type == 'Drinks' %}
-			<tr><td>{{ item.menu_name }} </td><td> {{ item.cost }}</td></tr>
+				<tr><td>{{ item.menu_name }} </td><td> {{ "$%.2f"|format(item.cost) }}</td>
+				{% if item.stock_name %}
+					<td> --> {{ item.stock_name }} </td>
+				{% endif %}
+				</tr>
 			{% endif %}
 		{% endfor %}
 		</table>
@@ -60,7 +88,29 @@
 			<li><a href="/menu/query/eggfree">Egg-Free Menu</a></li>
 			<li><a href="/menu/query/seafoodfree">Seafood-Free Menu</a></li>
 			<li><a href="/menu/query/vegan">Vegan Menu</a></li>
-		</ul>
+		</ul><br>
+		<h3>Search by item name</h3>
+		<form name=itemsearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='itemsearchlink()'>
+		</form><br>
+		<h3>Search by ingredient</h3>
+		<form name=ingredientsearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='ingredientsearchlink()'>
+		</form>
+		<script>
+			function itemsearchlink() {
+				var link = "/menu/search/item/";
+                link += document.itemsearch.search.value;
+				window.location.href=link;
+            }
+			function ingredientsearchlink() {
+                var link = "/menu/search/ingredient/";
+				link += document.ingredientsearch.search.value;
+				window.location.href=link;
+            }
+		</script>
 	{% endif %}
 </body>
 </html>

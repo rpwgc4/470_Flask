@@ -8,7 +8,11 @@
 	{% if stock %}
 		<table>
 		{% if qtype == 'all' %}
-			<tr><th>StockItem</th><th>Supplier</th><th>Price</th></tr>
+			<tr><th>StockItem</th><th>Supplier</th><th>Price</th>
+			{% if stock[0].menu_item_name %}
+				<th>In Dish</th>
+			{% endif %}
+			</tr>
 		{% elif qtype == 'averageorders' %}
 			<tr><th>Stock Item</th><th>Average Quantity</th><th>Average Purchase</th></tr>
 		{% elif qtype == 'numdishes' %}
@@ -36,6 +40,9 @@
 			{% if item.total %}
 				<td>{{ "$%.2f"|format(item.total) }}</td>
 			{% endif %}
+			{% if item.menu_item_name %}
+				<td> --> {{ item.menu_item_name }}</td>
+			{% endif %}
 			</tr>
 		{% endfor %}
 		</table>
@@ -46,7 +53,39 @@
 			<li><a href="/stock/query/averageorders">Average Weekly Order</a></li>
 			<li><a href="/stock/query/numdishes">Stock Items by Dishes Used</a></li>
 			<li><a href="/stock/query/supplierbreakdown">Supplier Breakdown</a></li>
-		</ul>
+		</ul><br>
+		<h3>Find stock item by ID number</h3>
+		<form name=stockidsearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='stockidsearchlink()'>
+		</form><br>
+		<h3>Find stock item by name</h3>
+		<form name=stocknamesearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='stocknamesearchlink()'>
+		</form><br>
+		<h3>Find stock item by dishes used</h3>
+		<form name=dishsearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='dishsearchlink()'>
+		</form><br>
+		<script>
+			function stockidsearchlink() {
+                var link = "/stock/search/stockid/";
+				link += document.stockidsearch.search.value;
+				window.location.href=link;
+            }
+			function stocknamesearchlink() {
+                var link = "/stock/search/stockname/";
+				link += document.stocknamesearch.search.value;
+				window.location.href=link;
+            }
+			function dishsearchlink() {
+                var link = "/stock/search/dish/";
+				link += document.dishsearch.search.value;
+				window.location.href=link;
+            }
+		</script>
 	{% endif %}
 </body>
 </html>
