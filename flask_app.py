@@ -79,6 +79,24 @@ def staffquery(querytype):
         staff_list = [None]
     return render_template('staff.html', staff=staff_list, qtype=querytype)
 
+@app.route("/staff/search/<string:param>/<string:dbsearch>")
+def staffsearch(param, dbsearch):
+    if not re.search("^\d{5}$", dbsearch) and not re.search("^[A-Za-z -]{1,30}$", dbsearch):
+        return render_template("invalidsearch.html", message="Invalid Search")
+    if param == 'empid':
+        staff_list = querydb("SELECT * FROM Staff WHERE employeeID = '" + dbsearch +"';")
+        if not staff_list:
+            return render_template("invalidsearch.html", message="No Results Returned")
+    if param == 'empname':
+        staff_list = querydb("SELECT * FROM Staff WHERE l_name LIKE '%" + dbsearch +"%' OR f_name LIKE '%" + dbsearch + "%';")
+        if not staff_list:
+            return render_template("invalidsearch.html", message="No Results Returned")
+    if param == 'position':
+        staff_list = querydb("SELECT * FROM Staff WHERE position LIKE '%" + dbsearch + "%';")
+        if not staff_list:
+            return render_template("invalidsearch.html", message="No Results Returned")
+    return render_template('staff.html', staff=staff_list, qtype='all')
+
 @app.route("/stock")
 def stock():
     return render_template("stock.html")

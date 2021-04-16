@@ -52,7 +52,39 @@
 			<li><a href="/staff/query/employeeofthequarter">Employee of the Quarter Awards</a></li>
 			<li><a href="/staff/query/annualwages">Staff Annual Income</a></li>
 			<li><a href="/staff/query/positionstats">Position Statistics</a></li>
-		</ul>
+		</ul><br>
+		<h3>Find by employee ID number</h3>
+		<form name=empidsearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='empidsearchlink()'>
+		</form><br>
+		<h3>Find by employee name</h3>
+		<form name=empnamesearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='empnamesearchlink()'>
+		</form><br>
+		<h3>Search by staff position</h3>
+		<form name=positionsearch>
+			<input name=search size=13><br>
+			<input type=button name=submit value='Search' onclick='positionsearchlink()'>
+		</form><br>
+		<script>
+			function empidsearchlink() {
+				var link = "/staff/search/empid/";
+				link += document.empidsearch.search.value;
+				window.location.href=link;
+			}
+			function empnamesearchlink() {
+                var link = "/staff/search/empname/";
+				link += document.empnamesearch.search.value;
+				window.location.href=link;
+            }
+			function positionsearchlink() {
+                var link = "/staff/search/position/";
+				link += document.positionsearch.search.value;
+				window.location.href=link;
+            }
+		</script>
 	{% endif %}
 </body>
 </html>
