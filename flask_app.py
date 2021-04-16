@@ -49,8 +49,12 @@ def menuquery(querytype):
 
 @app.route("/menu/search/<string:param>/<string:dbsearch>")
 def menusearch(param, dbsearch):
-    if re.search("[^a-zA-Z ]", dbsearch):
+    if not re.search("^[A-Za-z ]{1,30}$", dbsearch):
         return render_template("invalidsearch.html", message="Invalid Search")
+    if param == 'ingredient':
+        menu_items = querydb("SearchByIngredient '" + dbsearch + "';")
+        if not menu_items:
+            return render_template("invalidsearch.html", message="No Results Returned")
     if param == 'item':
         menu_items = querydb("SELECT * FROM MenuItem WHERE menu_name LIKE '%" + dbsearch + "%';")
         if not menu_items:

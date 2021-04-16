@@ -124,3 +124,14 @@ SELECT si.supplier, num_items, SUM(total) as total
 	ORDER BY total DESC;
 
 GO
+
+CREATE PROCEDURE SearchByIngredient @ing VARCHAR(30)
+AS
+SELECT course_type, menu_name, mi.cost, stock_name
+FROM MenuItem as mi INNER JOIN Ingredients as ing ON menu_name = menu_item_name
+INNER JOIN StockItem as si ON ingredientID = stockID
+WHERE stock_name LIKE '%' + @ing + '%'
+ORDER BY menu_name, stock_name;
+
+GO
+
