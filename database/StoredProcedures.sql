@@ -135,3 +135,11 @@ ORDER BY menu_name, stock_name;
 
 GO
 
+CREATE PROCEDURE SearchByDish @dish VARCHAR(30)
+AS
+SELECT stock_name, supplier, cost, menu_item_name
+FROM StockItem as si INNER JOIN Ingredients as ing ON ingredientID = stockID
+WHERE menu_item_name LIKE '%' + @dish + '%'
+ORDER BY menu_item_name, stock_name;
+
+GO
