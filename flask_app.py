@@ -46,6 +46,12 @@ def menuquery(querytype):
         menu_items = [None]
     return render_template('menu.html', items=menu_items)
 
+@app.route("/menu/search/<string:param>/<string:search>")
+def menusearch(param, search):
+    if param == 'item':
+        menu_items = querydb("SELECT * FROM MenuItem WHERE menu_name LIKE '%" + search + "%';")
+    return render_template('menu.html', items=menu_items)
+
 @app.route("/staff")
 def staff():
     return render_template("staff.html")
