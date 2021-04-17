@@ -35,7 +35,6 @@ def financequery(year, quarter, week):
     year_list = querydb("SELECT * FROM Annual;")
     return render_template('finance.html', years=year_list, records=week_list)
 
-
 @app.route("/menu/")
 def menu():
     return render_template("menu.html")
