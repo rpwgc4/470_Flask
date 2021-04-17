@@ -4,6 +4,61 @@
 	<title>BLRST Restaurant</title>
 </head>
 <body>
-	<h1> Restaurant Finance </h1>
+	<h1> Restaurant Finance </h1><br>
+	<form name=select>
+		<h4>Year</h4>
+		<select name=year>
+			{% for year in years %}
+				<option value={{ year.year }}>{{ year.year }}</option>
+			{% endfor %}
+		</select><br>
+		<h4>Quarter</h4>
+		<select name=quarter onChange='changeWeeks(this.value)'>
+			<option value=0>All</option>
+			<option value=1> 1 </option>
+			<option value=2> 2 </option>
+			<option value=3> 3 </option>
+			<option value=4> 4 </option>
+		</select><br>
+		<h4>Week</h4>
+		<select name=week>
+			<option value=0>All</option>
+		</select><br>
+		<input type=button name=submit value='Search' onclick='financequerylink()'>
+	</form><br>
+	{% if records %}
+		<table>
+		<tr><th>Year</th><th>Week</th><th>Income</th><th>Expenditures</th></tr>
+		{% for week in records %}
+			<tr><td> {{ week.year }} </td><td> {{ week.week_num }} </td>
+			<td> {{ "$%.2f"|format(week.income) }} </td><td> {{ "$%.2f"|format(week.expenditures) }} </td></tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+	<script>
+		var weeksByQuarter = {
+			1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+			2: [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+			3: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36 ,37, 38, 39],
+			4: [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]
+		};
+		function changeWeeks(qnum) {
+			var optionstr = "<option value=0>All</option>";
+            if (qnum > 0) {
+                for (var week in weeksByQuarter[qnum]) {
+                    optionstr += "<option value=" + weeksByQuarter[qnum][week] + ">" + weeksByQuarter[qnum][week] + "</option>";
+                }
+            }
+			document.select.week.innerHTML = optionstr;
+        }
+		
+		function financequerylink() {
+            var link = "/finance/query/";
+			link += document.select.year.value +"/";
+			link += document.select.quarter.value +"/";
+			link += document.select.week.value +"/";
+			window.location.href = link;
+        }
+	</script>
 </body>
 </html>
