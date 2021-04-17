@@ -21,7 +21,19 @@ def home():
 
 @app.route("/finance/")
 def finance():
-    return render_template('finance.html')
+    year_list = querydb("SELECT * FROM Annual;")
+    return render_template('finance.html', years=year_list)
+
+@app.route("/finance/query/<int:year>/<int:quarter>/<int:week>/")
+def financequery(year, quarter, week):
+    if quarter == 0 and week == 0:
+        week_list = querydb("SELECT * FROM Week WHERE year = " + str(year) + ";")
+    elif week == 0:
+        week_list = querydb("SELECT * FROM Week WHERE quart_num = " + str(quarter) + " AND year = " + str(year) + ";")
+    else:
+        week_list = querydb("SELECT * FROM Week WHERE week_num = " + str(week) + " AND year = " + str(year) + ";")
+    year_list = querydb("SELECT * FROM Annual;")
+    return render_template('finance.html', years=year_list, records=week_list)
 
 @app.route("/menu/")
 def menu():
