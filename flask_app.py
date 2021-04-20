@@ -188,7 +188,45 @@ def stockadd(itemname, supplier, price, veg, lactose, egg, gluten, seafood):
         querydb(qstring, True)
     except Exception:
         return render_template("invalidsearch.html", message="Record could not be inserted")
-    return render_template("additem.html", itemtype='stock', message='Successfully Inserted')
+    dropdown = querydb("SupplierBreakdown;")
+    return render_template("additem.html", itemtype='stock', drop=dropdown, message='Successfully Inserted')
+
+@app.route("/modify/removeitem/<string:rmvtype>/")
+def removeitem(rmvtype):
+    if rmvtype == 'dish':
+        items = querydb("SELECT * FROM MenuItem;")
+        return render_template("removeitem.html", menu=items, course="Appetizers")
+    if rmvtype == 'stock':
+        items = querydb("SELECT * FROM StockItem ORDER BY stock_name;")
+        return render_template("removeitem.html", stock=items)
+    return render_template("invalidsearch.html", message="Invalid page")
+
+@app.route("/modify/removeitem/dish/<string:coursetype>/")
+def removedish(coursetype):
+    items = querydb("SELECT * FROM MenuItem;")
+    return render_template("removeitem.html", menu=items, course=coursetype)
+
+@app.route("/modify/removeitem/dish/<string:coursetype>/<string:dish>/")
+def dishremovequery(coursetype, dish):
+    if not re.search("^[A-Za-z -]{1,30}$", dish):
+        return render_template("invalidsearch.html", message = "Invalid item name")
+    try:
+        querydb("DELETE FROM MenuItem WHERE menu_name = '" + dish + "';", True)
+    except Exception:
+        return render_template("invalidsearch.html", message="Record could not be deleted")
+    items = querydb("SELECT * FROM MenuItem;")
+    return render_template("removeitem.html", menu=items, course=coursetype, message="Record Deleted!")
+
+@app.route("/modify/removeitem/stock/<string:stockid>/")
+def stockremovequery(stockid):
+    if not re.search("^[0-9]{5}$", stockid):
+        return render_template("invalidsearch.html", message = "Invalid query")
+    try:
+        querydb("DELETE FROM StockItem WHERE stockID = '" + stockid + "';", True)
+    except Exception:
+        return render_template("invalidsearch.html", message="Record could not be deleted")
+    items = querydb("SELECT * FROM StockItem ORDER BY stock_name;")
+    return render_template("removeitem.html", stock=items, message="Record Deleted!")
 
 @app.route("/modify/ingredients/")
 def ingselectcourse():
