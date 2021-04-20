@@ -158,6 +158,12 @@ def additem(addtype):
 
 @app.route("/modify/additem/dish/<string:coursetype>/<string:itemname>/<float:price>/")
 def dishadd(coursetype, itemname, price):
+    if not re.search("^[A-Za-z -]{1,30}$", coursetype):
+        return render_template("invalidsearch.html", message = "Invalid course type")
+    if not re.search("^[A-Za-z -]{1,30}$", itemname):
+        return render_template("invalidsearch.html", message = "Invalid item name")
+    if not price > 0:
+        return render_template("invalidsearch.html", message = "Invalid price")
     try:
         querydb("INSERT INTO MenuItem VALUES ('"+coursetype+"', '"+itemname+"', "+str(price)+");", True)
     except Exception:
@@ -166,6 +172,14 @@ def dishadd(coursetype, itemname, price):
 
 @app.route("/modify/additem/stock/<string:itemname>/<string:supplier>/<float:price>/<int:veg>/<int:lactose>/<int:egg>/<int:gluten>/<int:seafood>/")
 def stockadd(itemname, supplier, price, veg, lactose, egg, gluten, seafood):
+    if not re.search("^[A-Za-z -]{1,30}$", itemname):
+        return render_template("invalidsearch.html", message = "Invalid item name")
+    if not re.search("^[A-Za-z -&]{1,30}$", supplier):
+        return render_template("invalidsearch.html", message = "Invalid supplier")
+    if not price > 0:
+        return render_template("invalidsearch.html", message = "Invalid price")
+    if not ((veg == 0 or veg == 1) and (lactose == 0 or lactose == 1) and (egg == 0 or egg == 1) and (gluten == 0 or gluten == 1) and (seafood == 0 or seafood == 1)):
+        return render_template("invalidsearch.html", message="Invalid query")
     itemid = int(querydb("SELECT max(stockID) as maxid FROM StockItem")[0].maxid) + 1
     try:
         qstring = "INSERT INTO StockItem VALUES "
@@ -194,6 +208,10 @@ def ingstockselect(coursetype, dish):
 
 @app.route("/modify/ingredients/<string:coursetype>/<string:dish>/<string:op>/<string:stock>/")
 def ingstockop(coursetype, dish, op, stock):
+    if not re.search("^[A-Za-z -]{1,30}$", dish):
+        return render_template("invalidsearch.html", message = "Invalid item name")
+    if not re.search("^[0-9]{5}$", stock):
+        return render_template("invalidsearch.html", message = "Invalid query")
     if op == 'add':
         try:
             querydb("INSERT INTO Ingredients VALUES ('" + stock +"', '"+ dish + "');", True)
