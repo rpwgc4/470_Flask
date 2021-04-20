@@ -149,6 +149,33 @@ def stocksearch(param, dbsearch):
             return render_template("invalidsearch.html", message="No Results Returned")
     return render_template('stock.html', stock=stock_items, qtype='all')
 
+@app.route("/modify/additem/<string:addtype>/")
+def additem(addtype):
+    dropdown = []
+    if addtype == 'stock':
+        dropdown = querydb("SupplierBreakdown;")
+    return render_template('additem.html', itemtype=addtype, drop=dropdown)
+
+@app.route("/modify/additem/dish/<string:coursetype>/<string:itemname>/<float:price>/")
+def dishadd(coursetype, itemname, price):
+    try:
+        querydb("INSERT INTO MenuItem VALUES ('"+coursetype+"', '"+itemname+"', "+str(price)+");", True)
+    except Exception:
+        return render_template("invalidsearch.html", message="Record could not be inserted")
+    return render_template("additem.html", itemtype='dish', message='Successfully Inserted')
+
+@app.route("/modify/additem/stock/<string:itemname>/<string:supplier>/<float:price>/<int:veg>/<int:lactose>/<int:egg>/<int:gluten>/<int:seafood>/")
+def stockadd(itemname, supplier, price, veg, lactose, egg, gluten, seafood):
+    itemid = int(querydb("SELECT max(stockID) as maxid FROM StockItem")[0].maxid) + 1
+    try:
+        qstring = "INSERT INTO StockItem VALUES "
+        qstring += "("+str(itemid)+", '"+itemname+"', '"+supplier+"', "+str(price)+", "
+        qstring += str(veg)+", "+str(lactose)+", "+str(egg)+", "+str(gluten)+", "+str(seafood)+");"
+        querydb(qstring, True)
+    except Exception:
+        return render_template("invalidsearch.html", message="Record could not be inserted")
+    return render_template("additem.html", itemtype='stock', message='Successfully Inserted')
+
 @app.route("/modify/ingredients/")
 def ingselectcourse():
     menu_items = querydb("SELECT * FROM MenuItem;")

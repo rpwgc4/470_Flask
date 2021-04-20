@@ -33,7 +33,7 @@
                 {% endif %}
             {% endfor %}
         </select>
-        <input type=button name=submit value='Remove' onclick='ingremovelink()'><br>
+        <input type=button name=remove value='Remove' onclick='ingremovelink()'><br>
         <select name=toadd>
             {% for stock in ingredients %}
                 {% if stock.menu_item_name != dish %}
@@ -41,7 +41,7 @@
                 {% endif %}
             {% endfor %}
         </select>
-        <input type=button name=submit value='Add' onclick='ingaddlink()'><br>
+        <input type=button name=add value='Add' onclick='ingaddlink()'><br>
     </form>
     {% endif %}
     <script>

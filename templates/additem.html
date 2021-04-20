@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>BLRST Restaurant</title>
+</head>
+<body>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    {% if itemtype == 'dish'%}
+    <h3>Add Dish</h3>
+    <form name=dishadd>
+        <h5>CourseType</h5>
+        <select name=coursetype>
+            <option value='Appetizers'>Appetizers</option>
+            <option value='Soups and Salads'>Soups and Salads</option>
+            <option value='Entrees'>Entrees</option>
+            <option value='Seafood'>Seafood</option>
+            <option value="Kid's Menu">Kid's Menu</option>
+            <option value='Desserts'>Desserts</option>
+            <option value='Drinks'>Drinks</option>
+        </select><br>
+        <h5>Item Name</h5>
+        <input name=itemname size=13><br>
+        <h5>Price</h5>
+        <input name=itemprice size=13><br><br>
+        <input type=button name=add value='Add' onclick='dishaddlink()'>
+    </form>
+    {% endif %}
+    {% if itemtype == 'stock' %}
+    <h3>Add Stock</h3><br>
+    <form name=stockadd>
+        <h5>Item Name</h5>
+        <input name=itemname size=13><br>
+        <h5>Supplier</h5>
+        <select name=supplier>
+            {% for row in drop %}
+            <option value='{{ row.supplier }}'>{{ row.supplier }}</option>
+            {% endfor %}
+        </select><br>
+        <h5>Price</h5>
+        <input name=itemprice size=13><br>
+        <h5>Vegetarian</h5>
+        <select name=veg>
+            <option value=1>Yes</option>
+            <option value=0>No</option>
+        </select><br>
+        <h5>Contains Lactose</h5>
+        <select name=lactose>
+            <option value=0>No</option>
+            <option value=1>Yes</option>
+        </select><br>
+        <h5>Contains Egg</h5>
+        <select name=egg>
+            <option value=0>No</option>
+            <option value=1>Yes</option>
+        </select><br>
+        <h5>Contains Gluten</h5>
+        <select name=gluten>
+            <option value=0>No</option>
+            <option value=1>Yes</option>
+        </select><br>
+        <h5>Contains Seafood</h5>
+        <select name=seafood>
+            <option value=0>No</option>
+            <option value=1>Yes</option>
+        </select><br><br>
+        <input type=button name=add value='Add' onclick='stockaddlink()'>
+    </form>
+    {% endif %}
+    <script>
+        function dishaddlink() {
+            var link = "/modify/additem/dish/";
+            link += document.dishadd.coursetype.value + "/";
+            link += document.dishadd.itemname.value + "/";
+            link += document.dishadd.itemprice.value + "/";
+            window.location.href = link;
+        }
+        function stockaddlink() {
+            var link = "/modify/additem/stock/";
+            link += document.stockadd.itemname.value + "/";
+            link += document.stockadd.supplier.value + "/";
+            link += document.stockadd.itemprice.value + "/";
+            link += document.stockadd.veg.value + "/";
+            link += document.stockadd.lactose.value + "/";
+            link += document.stockadd.egg.value + "/";
+            link += document.stockadd.gluten.value + "/";
+            link += document.stockadd.seafood.value + "/";
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>
