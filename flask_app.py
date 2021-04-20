@@ -4,15 +4,19 @@ import re
 
 app = Flask(__name__)
 
-def querydb(querystring):
+def querydb(querystring, commit=False):
     result = []
     conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='LAPTOP-A7VIMRGT', database='chktest', trusted_connection='yes')
     cursor = conn.cursor()
     cursor.execute(querystring)
-    row = cursor.fetchone()
-    while row:
-        result.append(row)
+    if not commit:
         row = cursor.fetchone()
+        while row:
+            result.append(row)
+            row = cursor.fetchone()
+    else:
+        cursor.commit()
+    conn.close()
     return result
 
 @app.route("/")
@@ -144,6 +148,38 @@ def stocksearch(param, dbsearch):
         if not stock_items:
             return render_template("invalidsearch.html", message="No Results Returned")
     return render_template('stock.html', stock=stock_items, qtype='all')
+
+@app.route("/modify/ingredients/")
+def ingselectcourse():
+    menu_items = querydb("SELECT * FROM MenuItem;")
+    return render_template("ingredients.html", menu=menu_items, course="Appetizers")
+
+@app.route("/modify/ingredients/<string:coursetype>/")
+def ingselectdish(coursetype):
+    menu_items = querydb("SELECT * FROM MenuItem;")
+    return render_template("ingredients.html", menu=menu_items, course=coursetype)
+
+@app.route("/modify/ingredients/<string:coursetype>/<string:dish>/")
+def ingstockselect(coursetype, dish):
+    ing = querydb("IngredientsByDish '" + dish + "';")
+    menu_items = querydb("SELECT * FROM MenuItem;")
+    return render_template("ingredients.html", menu=menu_items, course=coursetype, ingredients=ing, dish=dish)
+
+@app.route("/modify/ingredients/<string:coursetype>/<string:dish>/<string:op>/<string:stock>/")
+def ingstockop(coursetype, dish, op, stock):
+    if op == 'add':
+        try:
+            querydb("INSERT INTO Ingredients VALUES ('" + stock +"', '"+ dish + "');", True)
+        except Exception:
+            return render_template("invalidsearch.html", message="Record could not be inserted")
+    if op == 'remove':
+        try:
+            querydb("DELETE FROM Ingredients WHERE menu_item_name = '" + dish + "' AND ingredientID = '" + stock + "';", True)
+        except Exception:
+            return render_template("invalidsearch.html", message="Record could not be deleted")
+    ing = querydb("IngredientsByDish '" + dish + "';")
+    menu_items = querydb("SELECT * FROM MenuItem;")
+    return render_template("ingredients.html", menu=menu_items, course=coursetype, ingredients=ing, dish=dish)
 
 if __name__ == '__main__':
     app.run(debug=True)
