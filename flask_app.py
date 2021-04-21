@@ -210,12 +210,18 @@ def removedish(coursetype):
 def dishremovequery(coursetype, dish):
     if not re.search("^[A-Za-z -]{1,30}$", dish):
         return render_template("invalidsearch.html", message = "Invalid item name")
+    fail = False
     try:
         querydb("DELETE FROM MenuItem WHERE menu_name = '" + dish + "';", True)
     except Exception:
-        return render_template("invalidsearch.html", message="Record could not be deleted")
+        fail = True
+    if fail:
+        try:
+            querydb("UPDATE MenuItem SET course_type='Removed' WHERE menu_name='" + dish + "';", True)
+        except Exception:
+            return render_template("invalidsearch.html", message="Record could not be removed")
     items = querydb("SELECT * FROM MenuItem;")
-    return render_template("removeitem.html", menu=items, course=coursetype, message="Record Deleted!")
+    return render_template("removeitem.html", menu=items, course=coursetype, message="Item Removed")
 
 @app.route("/modify/removeitem/stock/<string:stockid>/")
 def stockremovequery(stockid):
@@ -263,6 +269,25 @@ def ingstockop(coursetype, dish, op, stock):
     ing = querydb("IngredientsByDish '" + dish + "';")
     menu_items = querydb("SELECT * FROM MenuItem;")
     return render_template("ingredients.html", menu=menu_items, course=coursetype, ingredients=ing, dish=dish)
+
+@app.route("/modify/menu/")
+@app.route("/modify/menu/<string:coursetype>/")
+def modmenu(coursetype="Appetizers"):
+    items = querydb("SELECT * FROM MenuItem;")
+    return render_template("modmenu.html", menu=items, course=coursetype)
+
+@app.route("/modify/menu/<string:coursetype>/<string:dish>/<string:edittype>/<string:edit>/")
+def modmenuquery(coursetype, dish, edittype, edit):
+    if not re.search("^[A-Za-z -]{1,30}$", edit) or not re.search("^[A-Za-z -]{1,30}$", dish):
+        return render_template("invalidsearch.html", message="Invalid Edit")
+    if edittype == 'course':
+        try:
+            querydb("UPDATE MenuItem SET course_type='"+edit+"' WHERE menu_name='"+dish+"';", True)
+        except Exception:
+            return render_template("invalidsearch.html", message="Could not edit")
+    items = querydb("SELECT * FROM MenuItem;")
+    return render_template("modmenu.html", menu=items, course=coursetype, message="Item Edited")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
