@@ -152,6 +152,10 @@ def stocksearch(param, dbsearch):
             return render_template("invalidsearch.html", message="No Results Returned")
     return render_template('stock.html', stock=stock_items, qtype='all')
 
+@app.route("/modify/")
+def modifytables():
+    return render_template("modify.html")
+
 @app.route("/modify/additem/<string:addtype>/")
 def additem(addtype):
     dropdown = []

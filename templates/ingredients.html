@@ -3,8 +3,9 @@
     <title>BLRST Restaurant</title>    
 </head>
 <body>
-    <h4>Select Dish</h4>
+    <h3>Modify Ingredients</h3>
     <form name=selectdish>
+        <h5>Select Course Type</h5>
         <select name=coursetype onChange='selecttypelink()'>
             <option value=''></option>
             <option value='Appetizers'>Appetizers</option>
@@ -16,13 +17,14 @@
             <option value='Drinks'>Drinks</option>
             <option value='Unassigned'>Unassigned</option>
         </select>
+        <h5>Select Dish</h5>
         <select name=dish>
             {% for item in menu %}
                 {% if item.course_type == course %}
                 <option value='{{ item.menu_name }}'>{{ item.menu_name }}</option>
                 {% endif %}
             {% endfor %}
-        </select>
+        </select><br><br>
         <input type=button name=submit value='Select' onclick='selectdishlink()'>
     </form>
     {% if dish %}
