@@ -143,3 +143,10 @@ WHERE menu_item_name LIKE '%' + @dish + '%'
 ORDER BY menu_item_name, stock_name;
 
 GO
+
+CREATE PROCEDURE IngredientsByDish @dish VARCHAR(30)
+AS
+SELECT menu_item_name, stock_name, stockID FROM Ingredients RIGHT OUTER JOIN StockItem
+ON ingredientID=stockID AND menu_item_name = @dish ORDER BY stock_name;
+
+GO

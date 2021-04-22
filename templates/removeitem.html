@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>BLRST Restaurant</title>
+</head>
+<body>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    {% if menu %}
+    <h3>Remove Dish</h3>
+    <form name=dishremove>
+        <h5>Course Type</h5>
+        <select name=coursetype onChange='selecttypelink()'>
+            <option value='Appetizers'>Appetizers</option>
+            <option value='Soups and Salads'>Soups and Salads</option>
+            <option value='Entrees'>Entrees</option>
+            <option value='Seafood'>Seafood</option>
+            <option value="Kid's Menu">Kid's Menu</option>
+            <option value='Desserts'>Desserts</option>
+            <option value='Drinks'>Drinks</option>
+        </select>
+        <h5>Select Dish</h5>
+        <select name=dish>
+            {% for item in menu %}
+                {% if item.course_type == course %}
+                <option value='{{ item.menu_name }}'>{{ item.menu_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type=button name=remove value='Remove' onclick='dishremovelink()'>
+    </form>
+    {% endif %}
+    {% if stock %}
+    <h3>Remove Stock</h3>
+    <form name=stockremove>
+        <h5>Select Stock</h5>
+        <select name=selectstock>
+            {% for item in stock %}
+            <option value='{{ item.stockID }}'>{{ item.stock_name }}</option>
+            {% endfor %}
+        </select>
+        <input type=button name=remove value='Remove' onclick='stockremovelink()'>
+    </form>
+    {% endif %}
+    <script>
+        function selecttypelink() {
+            var link = '/modify/removeitem/dish/';
+            link += document.dishremove.coursetype.value;
+            window.location.href = link;
+        }
+        function dishremovelink() {
+            var link = '/modify/removeitem/dish/';
+            link += '{{ course }}/';
+            link += document.dishremove.dish.value;
+            window.location.href = link;
+        }
+        function stockremovelink() {
+            var link = '/modify/removeitem/stock/';
+            link += document.stockremove.selectstock.value;
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>

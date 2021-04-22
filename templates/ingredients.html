@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>BLRST Restaurant</title>    
+</head>
+<body>
+    <h4>Select Dish</h4>
+    <form name=selectdish>
+        <select name=coursetype onChange='selecttypelink()'>
+            <option value='Appetizers'>Appetizers</option>
+            <option value='Soups and Salads'>Soups and Salads</option>
+            <option value='Entrees'>Entrees</option>
+            <option value='Seafood'>Seafood</option>
+            <option value="Kid's Menu">Kid's Menu</option>
+            <option value='Desserts'>Desserts</option>
+            <option value='Drinks'>Drinks</option>
+        </select>
+        <select name=dish>
+            {% for item in menu %}
+                {% if item.course_type == course %}
+                <option value='{{ item.menu_name }}'>{{ item.menu_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type=button name=submit value='Select' onclick='selectdishlink()'>
+    </form>
+    {% if dish %}
+    <h4>{{ dish }}</h4>
+    <form name=modstock>
+        <select name=contain>
+            {% for stock in ingredients %}
+                {% if stock.menu_item_name == dish %}
+                <option value='{{ stock.stockID }}'>{{ stock.stock_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type=button name=remove value='Remove' onclick='ingremovelink()'><br>
+        <select name=toadd>
+            {% for stock in ingredients %}
+                {% if stock.menu_item_name != dish %}
+                <option value='{{ stock.stockID }}'>{{ stock.stock_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type=button name=add value='Add' onclick='ingaddlink()'><br>
+    </form>
+    {% endif %}
+    <script>
+        function selecttypelink() {
+            var link = '/modify/ingredients/';
+            link += document.selectdish.coursetype.value;
+            window.location.href = link;
+        }
+        function selectdishlink() {
+            var link = '/modify/ingredients/';
+            link += '{{ course }}/'; 
+            link += document.selectdish.dish.value;
+            window.location.href = link;
+        }
+        function ingremovelink() {
+            var link = '/modify/ingredients/';
+            link += '{{ course }}/'; 
+            link += '{{ dish }}/remove/';
+            link += document.modstock.contain.value;
+            window.location.href = link;
+        }
+        function ingaddlink() {
+            var link = '/modify/ingredients/';
+            link += '{{ course }}/'; 
+            link += '{{ dish }}/add/';
+            link += document.modstock.toadd.value;
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>
