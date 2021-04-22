@@ -4,7 +4,9 @@
 	GROUP BLRST - Swetha Bhumireddy, Lily Bui, Toan Chu, Byron Nave, Ryan Williams
 */
 
+CREATE DATABASE Restaurant;
 
+GO
 USE Restaurant;
 
 
