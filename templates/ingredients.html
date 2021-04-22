@@ -54,21 +54,21 @@
         }
         function selectdishlink() {
             var link = '/modify/ingredients/';
-            link += '{{ course }}/'; 
+            link += "{{ course|safe }}/"; 
             link += document.selectdish.dish.value;
             window.location.href = link;
         }
         function ingremovelink() {
             var link = '/modify/ingredients/';
-            link += '{{ course }}/'; 
-            link += '{{ dish }}/remove/';
+            link += "{{ course|safe }}/"; 
+            link += "{{ dish|safe }}/remove/";
             link += document.modstock.contain.value;
             window.location.href = link;
         }
         function ingaddlink() {
             var link = '/modify/ingredients/';
-            link += '{{ course }}/'; 
-            link += '{{ dish }}/add/';
+            link += "{{ course|safe }}/"; 
+            link += "{{ dish|safe }}/add/";
             link += document.modstock.toadd.value;
             window.location.href = link;
         }

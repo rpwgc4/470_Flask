@@ -49,7 +49,7 @@
         }
         function changecourselink() {
             var link = '/modify/menu/';
-            link += '{{ course }}/';
+            link += "{{ course|safe }}/";
             link += document.selectdish.dish.value;
             link += '/course/';
             link += document.selectdish.editcourse.value;

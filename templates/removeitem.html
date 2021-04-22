@@ -52,7 +52,7 @@
         }
         function dishremovelink() {
             var link = '/modify/removeitem/dish/';
-            link += '{{ course }}/';
+            link += "{{ course|safe }}/";
             link += document.dishremove.dish.value;
             window.location.href = link;
         }
