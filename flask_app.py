@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def querydb(querystring, commit=False):
     result = []
-    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='LAPTOP-A7VIMRGT', database='chktest', trusted_connection='yes')
+    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='DESKTOP-R85SSOT', database='Restaurant', trusted_connection='yes')
     cursor = conn.cursor()
     cursor.execute(querystring)
     if not commit:
