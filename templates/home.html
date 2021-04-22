@@ -33,7 +33,7 @@
 			text-align: center;
 			position: fixed;
 			border: 3px solid lightslategrey;
-			top: 120px;
+			top: 117px;
 			left: 30px;
 		}
 
@@ -51,7 +51,6 @@
 
 		.sectiondetails {
 			background-color: antiquewhite;
-			/*font-weight: none;*/
 			font-size: 11.5px;
 			display: none;
 			padding: 3px;
@@ -105,6 +104,17 @@
             border:1px solid #000;
         }
 
+        .pagefooter {
+            background: darkgrey;
+            padding: 13px;
+        }
+
+        .centertext {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
 	</style>
 </head>
 
@@ -134,50 +144,82 @@
     <div class="page-content" style="max-width:1000px; padding-left:250px;">
 
         <br><br><br>
-        <div class="section-content" id="about" style="border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
-            <h1><center><u>About</u></center></h1><br>
-            <p>dasjhdalhdlada enter stuff about the database and other general descriptions </p>
-            <p><b>maybe some small subheading here if necessary?</b></p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis odio diam, gravida id eleifend sit amet, pharetra id orci.
-                Vestibulum imperdiet, turpis nec imperdiet finibus, magna erat euismod sapien, nec ullamcorper dui felis et turpis.
-                Aenean condimentum lobortis purus sed vestibulum. Aliquam vitae urna eget tellus cursus sodales.
-            </p>
+        <div class="section-content" id="about" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>About</u></center></h1><br>
+            <p><center>
+                <b>The Restarant Database by the BLRST team is intended for use by restaurants as a means for them to be able to track their records.</b>
+                <br><br><br>
+                As seen in the directory to the left, this database can be used to find information regarding the menu items, stock items, staff members, 
+                and finances of your restaurant. You may use this directory to navigate to other portions of the site to find this information.
+                <br><br>
+                Once navigating to the pages listed in the directory, you will then be able to find a more in depth list of queries that can be made 
+                to determine a more detailed analysis on your restaurant's data.
+                <br><br><br>
+                For more information regarding these queries, please navigate to their listing on their respective pages.
+                <br><br><br>
+            </p></center>
         </div>
 
         <br><br><br>
-        <div class="section-content" id="usage">
-            <h1><center><u>Used By</u></center></h1><br>
-            <p>dasjhdalhdlada enter stuff about database being used by the restaurant "BLRST" which also happens to be hemorrhaging money :(</p>
-            <p><b>maybe some small subheading here if necessary?</b></p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis odio diam, gravida id eleifend sit amet, pharetra id orci.
-                Vestibulum imperdiet, turpis nec imperdiet finibus, magna erat euismod sapien, nec ullamcorper dui felis et turpis.
-                Aenean condimentum lobortis purus sed vestibulum. Aliquam vitae urna eget tellus cursus sodales.
-            </p>
+        <div class="section-content" id="usage" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>Used By</u></center></h1><br>
+            <p><center>
+                <b>The BLRST Restaurant Database is restricted to usage by only restaurants that have been authorized by the owners.</b>
+                <br><br><br>
+                The database can only be used as intended and cannot be reformatted or redistributed in any form at any point in time without prior consent from the BLRST Co. 
+                Any violations will be swiftly met with legal action and will be subject to "questioning" by the SFBI (Schrute Farms Buraeu of Investigation). 
+                It is in your best interests to not cross Schrute Farms.
+                <br><br>
+                In order to receive authorization, you and your restaurant must pass a rigourous background check to ensure you comply with the BLRST Co. standards. 
+                These standards, interviews, and background checks, etc. will be random and scheduled at our behest. To ensure best results for you and your restaurant,
+                we strongly advise you to assume you are already being evaluated to see if you will truly be a good fit.
+                <br><br><br>
+                For more information regarding obtaining an authorized contract, please contact Dwight K. Schrute at Schrute Farms.
+                <br><br><br>
+            </p></center>
         </div>
 
         <br><br><br>
-        <div class="section-content" id="contact">
-            <h1><center><u>Contact</u></center></h1><br>
-            <p>We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste. Do not hesitate to contact us.</p>
-            <p class="w3-text-blue-grey w3-large"><b>Catering Service, 42nd Living St, 43043 New York, NY</b></p>
-            <p>You can also contact us by phone 00553123-2323 or email catering@catering.com, or you can send us a message here:<br><br><br></p>
+        <div class="section-content" id="contact" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>Contact</u></center></h1><br>
+            <p><center>
+                This database and front end website acess has been created by the team known as BLRST at the University of Missouri - Kansas City.
+                <br>
+                This was created as part of the term project for the CS 470 class and is intended for use by restaurants for tracking their records.
+                <br><br><br>
+                The team consists of:
+                <ul>
+                    Swetha Bhumireddy, 
+                    Lily Bui, 
+                    Toan Chu, 
+                    Byron Nave, & 
+                    Ryan Williams
+                </ul>
+                <br>
+                To contact the creators for assistance or more information please go to the Schrute Farms Bed & Breakfast.
+                <br>
+                <b>Please direct all questions to the Assistant to the Manager, Dwight K. Schrute.</b>
+                <br><br><br>
+                    We hope you enjoy your stay at Schrute Farms and find the database to be useful!
+                    <br>
+                    Thank you, and be sure to visit us once again!
+                <br><br><br>
+            </p></center>
         </div>
         <br><br><br>
 
     </div>
 
-    <!-- navigation menu drop down -->
+    <!-- navigation/directory menu drop down -->
     <div id="menuholder">
         <p class="sectionhead">[DIRECTORY]</p>
 
         <p class="sectionhead">MENU</p>
         <div class="sectiondetails">
-            <hr class="solid" style="colortext-align:center; ">
+            <hr class="solid" style="color: darkgrey; text-align:center; ">
             Navigate here to find our restaurant menu as well as additional queries regarding dietary restrictions. <br>
             <hr class="solid" style="color:darkgrey;">
-            <i><a href="/menu">Menu Queries</a></i> <br><br>
+            <i><a href="/menu" style="background-color:antiquewhite;">Menu Queries</a></i> <br><br>
         </div>
 
         <p class="sectionhead">STOCK</p>
@@ -185,7 +227,7 @@
             <hr class="solid" style="color:darkgrey;">
             Navigate here to find our restaurant's stock purchases as well as additional queries depicting a detailed breakdown of this info. <br>
             <hr class="solid" style="color:darkgrey;">
-            <i><a href="/stock">Stock Queries</a></i> <br><br>
+            <i><a href="/stock" style="background-color:antiquewhite;">Stock Queries</a></i> <br><br>
         </div>
 
         <p class="sectionhead">STAFF</p>
@@ -193,7 +235,7 @@
             <hr class="solid" style="color:darkgrey;">
             Navigate here to find our restaurant staff members as well as additional queries regarding employee stats. <br>
             <hr class="solid" style="color:darkgrey;">
-            <i><a href="/staff">Staff Queries</a></i> <br><br>
+            <i><a href="/staff" style="background-color:antiquewhite;">Staff Queries</a></i> <br><br>
         </div>
 
         <p class="sectionhead">FINANCES</p>
@@ -201,14 +243,16 @@
             <hr class="solid" style="color:darkgrey;">
             Navigate here to find our restaurant finances as well as additional queries depicting a detailed breakdown of this info. <br>
             <hr class="solid" style="color:darkgrey;">
-            <i><a href="/finance">Finance Queries</a></i> <br><br>
+            <i><a href="/finance" style="background-color:antiquewhite;">Finance Queries</a></i> <br><br>
         </div>
     </div>
 
 
     <!-- Footer -->
-    <footer class="w3-center w3-light-grey w3-padding-32">
-        <p style="background-color: darkgrey; text-align: center;"><br><br>end footer<br><br></p>
+    <footer class="pagefooter">
+        <p style="background-color: darkgrey; text-align: center;">
+        <class="centertext"> &#11835 &emsp; Created by the BLRST Co. &emsp; &#11835 <br>
+        </p>
     </footer>
 
     <!---
