@@ -3,9 +3,11 @@
     <title>BLRST Restaurant</title>    
 </head>
 <body>
-    <h4>Select Dish</h4>
+    <h3>Modify Ingredients</h3>
     <form name=selectdish>
+        <h5>Select Course Type</h5>
         <select name=coursetype onChange='selecttypelink()'>
+            <option value=''></option>
             <option value='Appetizers'>Appetizers</option>
             <option value='Soups and Salads'>Soups and Salads</option>
             <option value='Entrees'>Entrees</option>
@@ -13,14 +15,16 @@
             <option value="Kid's Menu">Kid's Menu</option>
             <option value='Desserts'>Desserts</option>
             <option value='Drinks'>Drinks</option>
+            <option value='Unassigned'>Unassigned</option>
         </select>
+        <h5>Select Dish</h5>
         <select name=dish>
             {% for item in menu %}
                 {% if item.course_type == course %}
                 <option value='{{ item.menu_name }}'>{{ item.menu_name }}</option>
                 {% endif %}
             {% endfor %}
-        </select>
+        </select><br><br>
         <input type=button name=submit value='Select' onclick='selectdishlink()'>
     </form>
     {% if dish %}
@@ -52,21 +56,21 @@
         }
         function selectdishlink() {
             var link = '/modify/ingredients/';
-            link += '{{ course }}/'; 
+            link += "{{ course|safe }}/"; 
             link += document.selectdish.dish.value;
             window.location.href = link;
         }
         function ingremovelink() {
             var link = '/modify/ingredients/';
-            link += '{{ course }}/'; 
-            link += '{{ dish }}/remove/';
+            link += "{{ course|safe }}/"; 
+            link += "{{ dish|safe }}/remove/";
             link += document.modstock.contain.value;
             window.location.href = link;
         }
         function ingaddlink() {
             var link = '/modify/ingredients/';
-            link += '{{ course }}/'; 
-            link += '{{ dish }}/add/';
+            link += "{{ course|safe }}/"; 
+            link += "{{ dish|safe }}/add/";
             link += document.modstock.toadd.value;
             window.location.href = link;
         }

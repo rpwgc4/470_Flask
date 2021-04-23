@@ -6,7 +6,11 @@ app = Flask(__name__)
 
 def querydb(querystring, commit=False):
     result = []
+<<<<<<< HEAD
     conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='DESKTOP-R85SSOT', database='Restaurant', trusted_connection='yes')
+=======
+    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='LAPTOP-A7VIMRGT', database='Restaurant', trusted_connection='yes')
+>>>>>>> main
     cursor = conn.cursor()
     cursor.execute(querystring)
     if not commit:
@@ -65,8 +69,9 @@ def menuquery(querytype):
 
 @app.route("/menu/search/<string:param>/<string:dbsearch>/")
 def menusearch(param, dbsearch):
-    if not re.search("^[A-Za-z ]{1,30}$", dbsearch):
+    if not re.search("^[A-Za-z -']{1,30}$", dbsearch):
         return render_template("invalidsearch.html", message="Invalid Search")
+    dbsearch = dbsearch.replace('\'', '\'\'')
     if param == 'ingredient':
         menu_items = querydb("SearchByIngredient '" + dbsearch + "';")
         if not menu_items:
@@ -97,8 +102,9 @@ def staffquery(querytype):
 
 @app.route("/staff/search/<string:param>/<string:dbsearch>/")
 def staffsearch(param, dbsearch):
-    if not re.search("^\d{5}$", dbsearch) and not re.search("^[A-Za-z -]{1,30}$", dbsearch):
+    if not re.search("^\d{5}$", dbsearch) and not re.search("^[A-Za-z -']{1,30}$", dbsearch):
         return render_template("invalidsearch.html", message="Invalid Search")
+    dbsearch = dbsearch.replace('\'', '\'\'')
     if param == 'empid':
         staff_list = querydb("SELECT * FROM Staff WHERE employeeID = '" + dbsearch +"';")
         if not staff_list:
@@ -133,8 +139,9 @@ def stockquery(querytype):
 
 @app.route("/stock/search/<string:param>/<string:dbsearch>/")
 def stocksearch(param, dbsearch):
-    if not re.search("^\d{5}$", dbsearch) and not re.search("^[A-Za-z -&]{1,30}$", dbsearch):
+    if not re.search("^\d{5}$", dbsearch) and not re.search("^[A-Za-z -&']{1,30}$", dbsearch):
         return render_template("invalidsearch.html", message="Invalid Search")
+    dbsearch = dbsearch.replace('\'', '\'\'')
     if param == 'stockid':
         stock_items = querydb("SELECT * FROM StockItem WHERE stockID = '" + dbsearch + "';")
         if not stock_items:
@@ -149,6 +156,10 @@ def stocksearch(param, dbsearch):
             return render_template("invalidsearch.html", message="No Results Returned")
     return render_template('stock.html', stock=stock_items, qtype='all')
 
+@app.route("/modify/")
+def modifytables():
+    return render_template("modify.html")
+
 @app.route("/modify/additem/<string:addtype>/")
 def additem(addtype):
     dropdown = []
@@ -158,12 +169,14 @@ def additem(addtype):
 
 @app.route("/modify/additem/dish/<string:coursetype>/<string:itemname>/<float:price>/")
 def dishadd(coursetype, itemname, price):
-    if not re.search("^[A-Za-z -]{1,30}$", coursetype):
+    if not re.search("^[A-Za-z -']{1,30}$", coursetype):
         return render_template("invalidsearch.html", message = "Invalid course type")
-    if not re.search("^[A-Za-z -]{1,30}$", itemname):
+    if not re.search("^[A-Za-z -']{1,30}$", itemname):
         return render_template("invalidsearch.html", message = "Invalid item name")
     if not price > 0:
         return render_template("invalidsearch.html", message = "Invalid price")
+    coursetype = coursetype.replace('\'', '\'\'')
+    itemname = itemname.replace('\'', '\'\'')
     try:
         querydb("INSERT INTO MenuItem VALUES ('"+coursetype+"', '"+itemname+"', "+str(price)+");", True)
     except Exception:
@@ -172,12 +185,14 @@ def dishadd(coursetype, itemname, price):
 
 @app.route("/modify/additem/stock/<string:itemname>/<string:supplier>/<float:price>/<int:veg>/<int:lactose>/<int:egg>/<int:gluten>/<int:seafood>/")
 def stockadd(itemname, supplier, price, veg, lactose, egg, gluten, seafood):
-    if not re.search("^[A-Za-z -]{1,30}$", itemname):
+    if not re.search("^[A-Za-z -']{1,30}$", itemname):
         return render_template("invalidsearch.html", message = "Invalid item name")
-    if not re.search("^[A-Za-z -&]{1,30}$", supplier):
+    if not re.search("^[A-Za-z -&']{1,30}$", supplier):
         return render_template("invalidsearch.html", message = "Invalid supplier")
     if not price > 0:
         return render_template("invalidsearch.html", message = "Invalid price")
+    itemname = itemname.replace('\'', '\'\'')
+    supplier = supplier.replace('\'', '\'\'')
     if not ((veg == 0 or veg == 1) and (lactose == 0 or lactose == 1) and (egg == 0 or egg == 1) and (gluten == 0 or gluten == 1) and (seafood == 0 or seafood == 1)):
         return render_template("invalidsearch.html", message="Invalid query")
     itemid = int(querydb("SELECT max(stockID) as maxid FROM StockItem")[0].maxid) + 1
@@ -208,14 +223,21 @@ def removedish(coursetype):
 
 @app.route("/modify/removeitem/dish/<string:coursetype>/<string:dish>/")
 def dishremovequery(coursetype, dish):
-    if not re.search("^[A-Za-z -]{1,30}$", dish):
+    if not re.search("^[A-Za-z -']{1,30}$", dish):
         return render_template("invalidsearch.html", message = "Invalid item name")
+    dish = dish.replace('\'', '\'\'')
+    fail = False
     try:
         querydb("DELETE FROM MenuItem WHERE menu_name = '" + dish + "';", True)
     except Exception:
-        return render_template("invalidsearch.html", message="Record could not be deleted")
+        fail = True
+    if fail:
+        try:
+            querydb("UPDATE MenuItem SET course_type='Removed' WHERE menu_name='" + dish + "';", True)
+        except Exception:
+            return render_template("invalidsearch.html", message="Record could not be removed")
     items = querydb("SELECT * FROM MenuItem;")
-    return render_template("removeitem.html", menu=items, course=coursetype, message="Record Deleted!")
+    return render_template("removeitem.html", menu=items, course=coursetype, message="Item Removed")
 
 @app.route("/modify/removeitem/stock/<string:stockid>/")
 def stockremovequery(stockid):
@@ -229,12 +251,8 @@ def stockremovequery(stockid):
     return render_template("removeitem.html", stock=items, message="Record Deleted!")
 
 @app.route("/modify/ingredients/")
-def ingselectcourse():
-    menu_items = querydb("SELECT * FROM MenuItem;")
-    return render_template("ingredients.html", menu=menu_items, course="Appetizers")
-
 @app.route("/modify/ingredients/<string:coursetype>/")
-def ingselectdish(coursetype):
+def ingselectdish(coursetype="Appetizers"):
     menu_items = querydb("SELECT * FROM MenuItem;")
     return render_template("ingredients.html", menu=menu_items, course=coursetype)
 
@@ -246,10 +264,11 @@ def ingstockselect(coursetype, dish):
 
 @app.route("/modify/ingredients/<string:coursetype>/<string:dish>/<string:op>/<string:stock>/")
 def ingstockop(coursetype, dish, op, stock):
-    if not re.search("^[A-Za-z -]{1,30}$", dish):
+    if not re.search("^[A-Za-z -']{1,30}$", dish):
         return render_template("invalidsearch.html", message = "Invalid item name")
     if not re.search("^[0-9]{5}$", stock):
         return render_template("invalidsearch.html", message = "Invalid query")
+    dish = dish.replace('\'', '\'\'')
     if op == 'add':
         try:
             querydb("INSERT INTO Ingredients VALUES ('" + stock +"', '"+ dish + "');", True)
@@ -263,6 +282,27 @@ def ingstockop(coursetype, dish, op, stock):
     ing = querydb("IngredientsByDish '" + dish + "';")
     menu_items = querydb("SELECT * FROM MenuItem;")
     return render_template("ingredients.html", menu=menu_items, course=coursetype, ingredients=ing, dish=dish)
+
+@app.route("/modify/menu/")
+@app.route("/modify/menu/<string:coursetype>/")
+def modmenu(coursetype="Appetizers"):
+    items = querydb("SELECT * FROM MenuItem;")
+    return render_template("modmenu.html", menu=items, course=coursetype)
+
+@app.route("/modify/menu/<string:coursetype>/<string:dish>/<string:edittype>/<string:edit>/")
+def modmenuquery(coursetype, dish, edittype, edit):
+    if not re.search("^[A-Za-z -']{1,30}$", edit) or not re.search("^[A-Za-z -']{1,30}$", dish):
+        return render_template("invalidsearch.html", message="Invalid Edit")
+    dish = dish.replace('\'', '\'\'')
+    edit = edit.replace('\'', '\'\'')
+    if edittype == 'course':
+        try:
+            querydb("UPDATE MenuItem SET course_type='"+edit+"' WHERE menu_name='"+dish+"';", True)
+        except Exception:
+            return render_template("invalidsearch.html", message="Could not edit")
+    items = querydb("SELECT * FROM MenuItem;")
+    return render_template("modmenu.html", menu=items, course=coursetype, message="Item Edited")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
