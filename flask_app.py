@@ -76,7 +76,7 @@ def menusearch(param, dbsearch):
         menu_items = querydb("SELECT * FROM MenuItem WHERE menu_name LIKE '%" + dbsearch + "%';")
         if not menu_items:
             return render_template("invalidsearch.html", message="No Results Returned")
-    return render_template('menu.html', items=menu_items)
+    return render_template('menu.html', searchitems=menu_items)
 
 @app.route("/staff/")
 def staff():
