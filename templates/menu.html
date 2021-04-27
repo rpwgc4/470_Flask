@@ -231,138 +231,136 @@
         </div>
 
         <br><br><br>
-                <div class="section-content" id="queries" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
-                    <h1 style="color: #132c33;"><center><u>Queries</u></center></h1><br>
-                    <p>
-                        <center>
-                            {% if items %}
-                            <table class="center;" style="width:50%;">
-                                <col align="left">
-                                <col align="center">
-                                <col align="right">
-                                <tr>
-                                    <th align="center" colspan="3"><br>Appetizers<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == 'Appetizers' %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr>
-                                    <th align="center" colspan="3"><br>Soups and Salads<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == 'Soups and Salads' %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr>
-                                    <th align="center" colspan="3"><br>Entrees<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == 'Entrees' %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr>
-                                    <th align="center" colspan="3"><br>Seafood<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == 'Seafood' %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr>
-                                    <th align="center" colspan="3"><br>Kid's Menu<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == "Kid's Menu" %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr>
-                                    <th align="center" colspan="3"><br>Desserts<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == 'Desserts' %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                <tr>
-                                    <th align="center" colspan="3"><br>Drinks<br></th>
-                                </tr>
-                                {% for item in items %}
-                                {% if item.course_type == 'Drinks' %}
-                                <tr>
-                                    <td>{{ item.menu_name }}</td>
-                                    <td>&emsp;&emsp;&emsp;</td>
-                                    <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
+        <div class="section-content" id="queries" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>Queries</u></center></h1><br>
+            <p>
+                <center>
+                    {% if items %}
+                    <table class="center;" style="width:50%;">
+                        <col align="left">
+                        <col align="center">
+                        <col align="right">
+                        <tr>
+                            <th align="center" colspan="3"><br>Appetizers<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == 'Appetizers' %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th align="center" colspan="3"><br>Soups and Salads<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == 'Soups and Salads' %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th align="center" colspan="3"><br>Entrees<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == 'Entrees' %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th align="center" colspan="3"><br>Seafood<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == 'Seafood' %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th align="center" colspan="3"><br>Kid's Menu<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == "Kid's Menu" %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th align="center" colspan="3"><br>Desserts<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == 'Desserts' %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th align="center" colspan="3"><br>Drinks<br></th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.course_type == 'Drinks' %}
+                        <tr>
+                            <td>{{ item.menu_name }}</td>
+                            <td>&emsp;&emsp;&emsp;</td>
+                            <td>&emsp;&emsp; {{ "$%.2f"|format(item.cost) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
 
-                                <tr><td><br><br><br></td></tr>
+                        <tr><td><br><br><br></td></tr>
 
-                                <tr>
-                                    <th colspan="3"><a class="button" href="/menu/">Return to Menu Queries</a></th>
-                                </tr>
+                        <tr>
+                            <th colspan="3"><a class="button" href="/menu/">Return to Menu Queries</a></th>
+                        </tr>
 
-                            </table>
+                    </table>
 
-                            {% else %}
-                            <b style="font-size:13pt;">Select query to sort by:</b>
-                            <ul>
-                                <br>
-                                <a class="button" href="/menu/query/all/#queries">Full Menu</a>&emsp;
-                                <a class="button" href="/menu/query/vegetarian/#queries">Vegetarian Menu</a>&emsp;
-                                <a class="button" href="/menu/query/vegan/#queries">Vegan Menu</a>
-                                <br><br>
-                                <a class="button" href="/menu/query/lactosefree/#queries">Lactose-Free Menu</a>&emsp;
-                                <a class="button" href="/menu/query/eggfree/#queries">Egg-Free Menu</a>&emsp;
-                                <a class="button" href="/menu/query/glutenfree/#queries">Gluten-Free Menu</a>&emsp;
-                                <a class="button" href="/menu/query/seafoodfree/#queries">Seafood-Free Menu</a>
-                            </ul>
+                    {% else %}
+                    <b style="font-size:13pt;">Select query to sort by:</b>
+                    <ul>
+                        <br>
+                        <a class="button" href="/menu/query/all/#queries">Full Menu</a>&emsp;
+                        <a class="button" href="/menu/query/vegetarian/#queries">Vegetarian Menu</a>&emsp;
+                        <a class="button" href="/menu/query/vegan/#queries">Vegan Menu</a>
+                        <br><br>
+                        <a class="button" href="/menu/query/lactosefree/#queries">Lactose-Free Menu</a>&emsp;
+                        <a class="button" href="/menu/query/eggfree/#queries">Egg-Free Menu</a>&emsp;
+                        <a class="button" href="/menu/query/glutenfree/#queries">Gluten-Free Menu</a>&emsp;
+                        <a class="button" href="/menu/query/seafoodfree/#queries">Seafood-Free Menu</a>
+                    </ul>
 
-                            <br><br><br>
-                            {% endif %}
-                            <br><br><br>
+                    <br><br><br>
+                    {% endif %}
+                    <br><br><br>
 
-                        </center>
-                    </p>
+                </center>
+            </p>
 
-                </div>
+        </div>
 
         <br><br><br>
         <div class="section-content" id="search" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
             <h1 style="color: #132c33;"><center><u>Search</u></center></h1><br>
             <p>
                 <center>
-                    <b style="font-size:13pt;">Enter in value to search for in the correlating search bar below:</b>
-                    <br><br><br>
 
                     {% if searchitems %}
                     <table class="center;" style="width:50%;">
@@ -467,7 +465,7 @@
                         </tr>
                         {% endif %}
                         {% endfor %}
-                        
+
                         <tr><td><br><br><br></td></tr>
 
                         <tr>
@@ -477,6 +475,8 @@
                     </table>
 
                     {% else %}
+                    <b style="font-size:13pt;">Enter in value to search for in the correlating search bar below:</b>
+                    <br><br><br>
 
                     <table class="center" style="width: 50%;">
                         <col align="center">
@@ -515,16 +515,16 @@
 
                     <script>
                         function itemsearchlink() {
-                            var link = "/menu/search/item/";
-                            link += document.itemsearch.search.value;
-                            link += "/#search"
-                            window.location.href=link;
+                        var link = "/menu/search/item/";
+                        link += document.itemsearch.search.value;
+                        link += "/#search"
+                        window.location.href=link;
                         }
                         function ingredientsearchlink() {
-                            var link = "/menu/search/ingredient/";
-                            link += document.ingredientsearch.search.value;
-                            link += "/#search"
-                            window.location.href=link;
+                        var link = "/menu/search/ingredient/";
+                        link += document.ingredientsearch.search.value;
+                        link += "/#search"
+                        window.location.href=link;
                         }
                     </script>
 

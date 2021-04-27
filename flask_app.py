@@ -150,7 +150,7 @@ def stocksearch(param, dbsearch):
         stock_items = querydb("SearchByDish '" + dbsearch + "';")
         if not stock_items:
             return render_template("invalidsearch.html", message="No Results Returned")
-    return render_template('stock.html', stock=stock_items, qtype='all')
+    return render_template('stock.html', stockitem=stock_items, qtype='all')
 
 @app.route("/modify/")
 def modifytables():
