@@ -35,7 +35,7 @@
         <h5>Supplier</h5>
         <select name=supplier>
             {% for row in drop %}
-            <option value='{{ row.supplier }}'>{{ row.supplier }}</option>
+            <option value="{{ row.supplier|safe }}">{{ row.supplier }}</option>
             {% endfor %}
         </select><br>
         <h5>Price</h5>
