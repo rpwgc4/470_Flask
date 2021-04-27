@@ -150,3 +150,27 @@ SELECT menu_item_name, stock_name, stockID FROM Ingredients RIGHT OUTER JOIN Sto
 ON ingredientID=stockID AND menu_item_name = @dish ORDER BY stock_name;
 
 GO
+
+CREATE PROCEDURE SearchMenuByName @name VARCHAR(30)
+AS
+SELECT * FROM MenuItem WHERE menu_name LIKE '%'+ @name +'%';
+
+GO
+
+CREATE PROCEDURE SearchStockByName @name VARCHAR(30)
+AS
+SELECT * FROM StockItem WHERE stock_name LIKE '%'+ @name +'%';
+
+GO
+
+CREATE PROCEDURE SearchStaffByName @name VARCHAR(30)
+AS
+SELECT * FROM Staff WHERE l_name LIKE '%' + @name + '%' OR f_name LIKE '%' + @name + '%';
+
+GO
+
+CREATE PROCEDURE SearchStaffByPosition @position VARCHAR(30)
+AS
+SELECT * FROM Staff WHERE position LIKE '%' + @position + '%';
+
+GO
