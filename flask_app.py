@@ -8,16 +8,7 @@ def querydb(querystring, commit=False, *args):
     result = []
     conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='LAPTOP-A7VIMRGT', database='Restaurant', trusted_connection='yes')
     cursor = conn.cursor()
-    if len(args) == 0:
-        cursor.execute(querystring)
-    elif len(args) == 1:
-        cursor.execute(querystring, args[0])
-    elif len(args) == 2:
-        cursor.execute(querystring, args[0], args[1])
-    elif len(args) == 3:
-        cursor.execute(querystring, args[0], args[1], args[2])
-    elif len(args) == 9:
-        cursor.execute(querystring, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
+    cursor.execute(querystring, *args)
     if not commit:
         row = cursor.fetchone()
         while row:
