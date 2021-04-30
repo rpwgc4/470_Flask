@@ -148,7 +148,7 @@
         margin-right: 0%;
         color: darkolivegreen;
 ">
-				<a href="#menu" class="heading-button">BLRST Stock</a>
+				<a href="#stock" class="heading-button">BLRST Stock</a>
 				<span class="tab"></span>
 				<a href="#details" class="heading-button">Details</a>
 				<a href="#queries" class="heading-button">Queries</a>
@@ -158,9 +158,8 @@
 	</div>
 
 	<!-- heading image -->
-	<div class="imgcontainer" id="menu">
-		<img src="https://images.unsplash.com/photo-1540736086231-18770daec04e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80
-			 <!--https://images.unsplash.com/photo-1590274577861-d646a5a39445?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80-->"
+	<div class="imgcontainer" id="stock">
+		<img src="https://images.unsplash.com/photo-1590274577861-d646a5a39445?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80"
 		alt="Stock" width="1450" height="800">
 		<div class="overlaytext">Stock Queries</div>
 	</div>
@@ -176,45 +175,42 @@
 				<center>
 					<b>The following lists a brief description of the functionality of each of the queries and searches available to you here.</b>
 					<br><br><br>
-
-					<br /><b>none of this is formatting correctly no matter what i do and idk why. im getting annoyed</b><br />
-
-					<table class="center" style="width: 85%;">
+					<table class="center" style="width: 100%;">
 						<col align="left">
 						<col align="center">
 						<col align="left">
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>All Stock Items</i></td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>All Stock Items</i></td>
 							<td>&emsp; &rarr; &emsp; &emsp;</td>
 							<td>Select this query to see the full list of stock items purchased by this restaurant.</td>
 						</tr>
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>Average Weekly Order</i></td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Average Weekly Order</i></td>
 							<td>&emsp; &rarr; &emsp;</td>
 							<td>Select this query to see a list of the average weekly order of each stock item ordered by cost of purchase.</td>
 						</tr>
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>Supplier Breakdown</i></td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Supplier Breakdown</i></td>
 							<td>&emsp; &rarr; &emsp;</td>
 							<td>Select this query to see the details regarding stock orders from each of the restaurant's suppliers.</td>
 						</tr>
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>Dishes Used</i>&emsp;</td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Dishes Used</i>&emsp;</td>
 							<td>&emsp; &rarr; &emsp;</td>
 							<td>Select query this to see a list of all stock items ordered by the number of dishes they are used in.</td>
 						</tr>
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>ID Number</i></td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>ID Number</i></td>
 							<td>&emsp; &rarr; &emsp;</td>
 							<td>Use this to search for a stock item by id number.</td>
 						</tr>
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>Stock Name</i></td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Stock Name</i></td>
 							<td>&emsp; &rarr; &emsp;</td>
 							<td>Use this to search for a stock item by name.</td>
 						</tr>
 						<tr>
-							<td>&emsp;&bull;&emsp;<i>Stock Used in Dish</i></td>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Stock Used in Dish</i></td>
 							<td>&emsp; &rarr; &emsp;</td>
 							<td>Use this to search for and find a list of stock items that are used in a specific dish.</td>
 						</tr>
@@ -304,13 +300,12 @@
 
 					{% else %}
 					<b style="font-size:13pt;">Select query to sort by:</b>
-					<ul>
-						<br>
-						<a href="/stock/query/all/#queries">All Stock Items</a>&emsp;
-						<a href="/stock/query/averageorders/#queries">Average Weekly Order</a>&emsp;
-						<a href="/stock/query/supplierbreakdown/#queries">Supplier Breakdown</a>&emsp;
-						<a href="/stock/query/numdishes/#queries">Dishes Used</a>
-					</ul>
+
+                    <br><br><br>
+                        <a href="/stock/query/all/#queries">All Stock Items</a>&emsp;
+                        <a href="/stock/query/averageorders/#queries">Average Weekly Order</a>&emsp;
+                        <a href="/stock/query/supplierbreakdown/#queries">Supplier Breakdown</a>&emsp;
+                        <a href="/stock/query/numdishes/#queries">Dishes Used</a>
 
 					<br><br><br>
 					{% endif %}
