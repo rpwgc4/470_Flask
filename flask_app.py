@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def querydb(querystring, commit=False, *args):
     result = []
-    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='LAPTOP-A7VIMRGT', database='Restaurant', trusted_connection='yes')
+    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='DESKTOP-R85SSOT', database='Restaurant', trusted_connection='yes')
     cursor = conn.cursor()
     if len(args) == 0:
         cursor.execute(querystring)
@@ -120,7 +120,7 @@ def staffsearch(param, dbsearch):
         staff_list = querydb("SearchStaffByPosition ?;", False, dbsearch)
         if not staff_list:
             return render_template("invalidsearch.html", message="No Results Returned")
-    return render_template('staff.html', staff=staff_list, qtype='all')
+    return render_template('staff.html', searchstaff=staff_list, qtype='all')
 
 @app.route("/stock/")
 def stock():

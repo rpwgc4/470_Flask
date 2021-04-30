@@ -1,90 +1,616 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>BLRST Restaurant</title>
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		$(".sectiondetails").hide();
+		$(".sectionhead").click(function() {
+		$(this).next(".sectiondetails").slideToggle('fast');
+		});
+		});
+	</script>
+
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+			background-color: lightslategrey;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			font-family: "Playfair Display";
+			letter-spacing: 5px;
+			font-weight: bold;
+		}
+
+		#menuholder {
+			background-color: darkgrey;
+			width: 170px;
+			font-size: 13pt;
+			font-family: Georgia;
+			text-align: center;
+			position: fixed;
+			border: 3px solid lightslategrey;
+			top: 117px;
+			left: 30px;
+		}
+
+		.sectionhead {
+			background-color: aliceblue;
+			font-weight: bold;
+			color: cadetblue;
+			text-transform: uppercase;
+			border: 1px solid;
+			letter-spacing: 1px;
+			padding: 5px;
+			margin: 5px;
+			cursor: help;
+		}
+
+		.sectiondetails {
+			background-color: antiquewhite;
+			font-size: 11.5px;
+			display: none;
+			padding: 3px;
+		}
+
+			.sectiondetails a {
+				color: darkolivegreen;
+			}
+
+				.sectiondetails a:hover {
+					color: chocolate;
+				}
+
+		.tab {
+			display: inline-block;
+			margin-left: 700px;
+		}
+
+		.imgcontainer {
+			position: relative;
+			text-align: center;
+		}
+
+		.overlaytext {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 55px;
+			font-weight: bold;
+			opacity: 0.85;
+			color: cadetblue;
+			text-shadow: 2px 2px 6px #000000, -2px -2px 6px #000000;
+			border: 3px solid cadetblue;
+			padding: 10px;
+			box-shadow: -3px -3px 11px #000, 3px 3px 11px #000;
+		}
+
+		a:link, a:visited {
+			border: 2px solid #184562;
+			background-color: #f0f8ff;
+			font-weight: bold;
+			color: darkolivegreen;
+			padding: 15px 25px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		a:hover, a:active {
+			border: 1px solid #000;
+		}
+
+		.pagefooter {
+			background: darkgrey;
+			padding: 13px;
+		}
+
+		.centertext {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.center {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.button {
+			background-color: none;
+			color: darkolivegreen;
+			transition: all 0.7s ease;
+		}
+
+			.button:hover {
+				color: #132c33;
+				border: 3px solid #184562;
+				transition: all 0.7s ease;
+				letter-spacing: 3px;
+				box-shadow: inset 500px 0 0 0px #bdd2b6;
+			}
+	</style>
+
 </head>
+
 <body>
+
+	<!-- heading bar -->
+	<div class="heading-bar" style="padding-top: 0.1px;">
+		<div class="padded-heading-bar" style="letter-spacing: 3px; font-size: 20px; font-family: Britannic;">
+			<p style="        text-align: center;
+        margin-left: 0%;
+        margin-right: 0%;
+        color: darkolivegreen;
+">
+				<a href="#staff" class="heading-button">BLRST Staff</a>
+				<span class="tab"></span>
+				<a href="#details" class="heading-button">Details</a>
+				<a href="#queries" class="heading-button">Queries</a>
+				<a href="#search" class="heading-button">Search</a>
+			</p>
+		</div>
+	</div>
+
+	<!-- heading image -->
+	<div class="imgcontainer" id="staff">
+		<img src="https://images.unsplash.com/photo-1430931071372-38127bd472b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1948&q=80"
+			 alt="Staff" width="1450" height="800">
+		<div class="overlaytext">Staff Queries</div>
+	</div>
+
+	<!-- page content -->
+	<div class="page-content" style="max-width:1000px; padding-left:250px;">
+
+		<br><br><br>
+
+		<div class="section-content" id="details" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+			<h1 style="color: #132c33;"><center><u>Details</u></center></h1><br>
+			<p>
+				<center>
+					<b>The following lists a brief description of the functionality of each of the queries and searches available to you here.</b>
+					<br><br><br>
+					<table class="center" style="width: 95%;">
+						<col align="left">
+						<col align="center">
+						<col align="left">
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>All Staff</i></td>
+							<td>&emsp; &rarr; &emsp; &emsp;</td>
+							<td>Select this query to see a list of all staff members at this restaurant.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Employee of the Quarter Awards</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>Select this query to see a list of the employees that worked the most hours each quarter.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Staff Annual Income</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>Select this query to see the details of each staff member's annual salary.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Position Statistics</i>&emsp;</td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>Select query this to see the details of each position at this restaurant.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Employee ID Number</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>Use this to search for employees by their id number.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Employee Name</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>Use this to search for employees by their name.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&emsp;&bull;&emsp;<i>Staff Position</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>Use this to search for employees working in a specific staff position.</td>
+						</tr>
+					</table>
+					<br><br><br>
+				</center>
+			</p>
+		</div>
+
+		<br><br><br>
+		<div class="section-content" id="queries" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+			<h1 style="color: #132c33;"><center><u>Queries</u></center></h1><br>
+			<p>
+				<center>
+
+					{% if staff %}
+					<table>
+						{% if qtype == 'all' %}
+						<tr>
+							<th>&emsp;&emsp;Employee Name&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Position&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Hourly Wage&emsp;&emsp;</th>
+						</tr>
+						{% elif qtype == 'employeeofthequarter' %}
+						<tr>
+							<th>&emsp;&emsp;Year&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Quarter&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Employee Name&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Hours Worked&emsp;&emsp;</th>
+						</tr>
+						{% elif qtype == 'annualwages' %}
+						<tr>
+							<th>&emsp;&emsp;Employee Name&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Position&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Annual Salary&emsp;&emsp;</th>
+						</tr>
+						{% elif qtype == 'positionstats' %}
+						<tr>
+							<th>&emsp;&emsp;Year&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Position&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Hours Per Week&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Amount Paid&emsp;&emsp;</th>
+						</tr>
+						{% endif %}
+						{% for person in staff %}
+						<tr>
+							{% if person.year %}
+							<td>&emsp;&emsp; {{ person.year }} </td>
+							{% endif %}
+							{% if person.quart_num %}
+							<td>&emsp;&emsp;&emsp; {{ person.quart_num }} </td>
+							{% endif %}
+							{% if person.f_name%}
+							<td>&emsp;&emsp;{{ person.f_name }} {{ person.l_name }}</td>
+							{% endif %}
+							{% if person.position %}
+							<td>&emsp;&emsp;&emsp;&emsp; {{ person.position }} </td>
+							{% endif %}
+							{% if person.weekly_hours %}
+							<td>&emsp;&emsp;&emsp;&emsp; {{ person.weekly_hours }} </td>
+							{% endif %}
+							{% if person.hours_in_quarter %}
+							<td>&emsp;&emsp;&emsp;&emsp; {{ person.hours_in_quarter }} </td>
+							{% endif %}
+							{% if person.hourly_wage %}
+							<td>&emsp;&emsp;&emsp; {{ "$%.2f"|format(person.hourly_wage) }} </td>
+							{% endif %}
+							{% if person.annual_salary %}
+							<td>&emsp;&emsp; {{ "$%.2f"|format(person.annual_salary) }} </td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+
+						<tr><td><br><br><br></td></tr>
+
+						<tr>
+							<th colspan="4"><a class="button" href="/staff/">Return to Staff Queries</a></th>
+						</tr>
+
+					</table>
+
+					{% else %}
+					<b style="font-size:13pt;">Select query to sort by:</b>
+
+					<br><br><br>
+						<a class="button" href="/staff/query/all/#queries">All Staff</a>&emsp;
+						<a class="button" href="/staff/query/employeeofthequarter/#queries">Employee of the Quarter Awards</a>&emsp;
+						<a class="button" href="/staff/query/annualwages/#queries">Staff Annual Income</a>&emsp;
+						<a class="button" href="/staff/query/positionstats/#queries">Position Statistics</a>
+
+					<br><br><br>
+					{% endif %}
+					<br><br><br>
+
+				</center>
+			</p>
+
+		</div>
+
+		<br><br><br>
+		<div class="section-content" id="search" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+			<h1 style="color: #132c33;"><center><u>Search</u></center></h1><br>
+			<p>
+				<center>
+
+					{% if searchstaff %}
+					<table>
+						{% if qtype == 'all' %}
+						<tr>
+							<th>Employee Name</th>
+							<th>Position</th>
+							<th>Hourly Wage</th>
+						</tr>
+						{% elif qtype == 'employeeofthequarter' %}
+						<tr>
+							<th>Year</th>
+							<th>Quarter</th>
+							<th>Employee Name</th>
+							<th>Hours Worked</th>
+						</tr>
+						{% elif qtype == 'annualwages' %}
+						<tr>
+							<th>Employee Name</th>
+							<th>Position</th>
+							<th>Annual Salary</th>
+						</tr>
+						{% elif qtype == 'positionstats' %}
+						<tr>
+							<th>Year</th>
+							<th>Position</th>
+							<th>Hours Per Week</th>
+							<th>Amount Paid</th>
+						</tr>
+						{% endif %}
+						{% for person in searchstaff %}
+						<tr>
+							{% if person.year %}
+							<td> {{ person.year }} </td>
+							{% endif %}
+							{% if person.quart_num %}
+							<td> {{ person.quart_num }} </td>
+							{% endif %}
+							{% if person.f_name%}
+							<td>{{ person.f_name }} {{ person.l_name }}</td>
+							{% endif %}
+							{% if person.position %}
+							<td> {{ person.position }} </td>
+							{% endif %}
+							{% if person.weekly_hours %}
+							<td> {{ person.weekly_hours }} </td>
+							{% endif %}
+							{% if person.hours_in_quarter %}
+							<td> {{ person.hours_in_quarter }} </td>
+							{% endif %}
+							{% if person.hourly_wage %}
+							<td> {{ "$%.2f"|format(person.hourly_wage) }} </td>
+							{% endif %}
+							{% if person.annual_salary %}
+							<td> {{ "$%.2f"|format(person.annual_salary) }} </td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+
+						<tr><td><br><br><br></td></tr>
+
+						<tr>
+							<th colspan="3"><a class="button" href="/staff/">Return to Staff Queries</a></th>
+						</tr>
+
+					</table>
+
+					{% else %}
+					<b style="font-size:13pt;">Enter in value to search for in the correlating search bar below:</b>
+					<br><br><br>
+
+					<table class="center" style="width: 50%;">
+						<col align="center">
+						<col align="center">
+						<col align="center">
+
+						<tr>
+							<form name=empidsearch>
+								<td>Search By Employee Id Number:</td>
+								<td>
+									&emsp;
+									<input name=search size=13>
+								</td>
+								<td>
+									&emsp;&emsp;
+									<input type=button name=submit value='Search' onclick='empidsearchlink()'>
+								</td>
+							</form>
+						</tr>
+
+						<tr>
+							<form name=empnamesearch>
+								<td>Search By Employee Name:</td>
+								<td>
+									&emsp;
+									<input name=search size=13>
+								</td>
+								<td>
+									&emsp;&emsp;
+									<input type=button name=submit value='Search' onclick='empnamesearchlink()'>
+								</td>
+							</form>
+						</tr>
+
+						<tr>
+							<form name=positionsearch>
+								<td>Search By Staff Position:</td>
+								<td>
+									&emsp;
+									<input name=search size=13>
+								</td>
+								<td>
+									&emsp;&emsp;
+									<input type=button name=submit value='Search' onclick='positionsearchlink()'>
+								</td>
+							</form>
+						</tr>
+
+					</table>
+
+					<script>
+						function empidsearchlink() {
+						var link = "/staff/search/empid/";
+						link += document.empidsearch.search.value;
+						link += "/#search";
+						window.location.href=link;
+						}
+						function empnamesearchlink() {
+						var link = "/staff/search/empname/";
+						link += document.empnamesearch.search.value;
+						link += "/#search";
+						window.location.href=link;
+						}
+						function positionsearchlink() {
+						var link = "/staff/search/position/";
+						link += document.positionsearch.search.value;
+						link += "/#search";
+						window.location.href=link;
+						}
+					</script>
+
+					<br><br><br>
+
+					{% endif %}
+
+					<br><br><br>
+
+				</center>
+			</p>
+		</div>
+		<br><br><br>
+
+	</div>
+
+	<!-- navigation/directory menu drop down -->
+	<div id="menuholder">
+		<p class="sectionhead">[DIRECTORY]</p>
+
+		<p class="sectionhead">HOME</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color: darkgrey; text-align:center; ">
+			Navigate here to find return to the home page. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/" style="background-color:antiquewhite;">Home Page</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">MENU</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color: darkgrey; text-align:center; ">
+			Navigate here to find our restaurant menu as well as additional queries regarding dietary restrictions. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/menu" style="background-color:antiquewhite;">Menu Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">STOCK</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color:darkgrey;">
+			Navigate here to find our restaurant's stock purchases as well as additional queries depicting a detailed breakdown of this info. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/stock" style="background-color:antiquewhite;">Stock Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">STAFF</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color:darkgrey;">
+			Navigate here to find our restaurant staff members as well as additional queries regarding employee stats. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/staff" style="background-color:antiquewhite;">Staff Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">MODIFY</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color: darkgrey; text-align:center; ">
+			Navigate here to modify menu items, ingredients, and stock items. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/modify" style="background-color:antiquewhite;">Modify Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">FINANCES</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color:darkgrey;">
+			Navigate here to find our restaurant finances as well as additional queries depicting a detailed breakdown of this info. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/finance" style="background-color:antiquewhite;">Finance Queries</a></i> <br><br>
+		</div>
+	</div>
+
 	<h1> Restaurant Staff </h1><br>
 	{% if staff %}
-		<table>
+	<table>
 		{% if qtype == 'all' %}
-			<tr><th>Employee Name</th><th>Position</th><th>Hourly Wage</th></tr>
+		<tr><th>Employee Name</th><th>Position</th><th>Hourly Wage</th></tr>
 		{% elif qtype == 'employeeofthequarter' %}
-			<tr><th>Year</th><th>Quarter</th><th>Employee Name</th><th>Hours Worked</th></tr>
+		<tr><th>Year</th><th>Quarter</th><th>Employee Name</th><th>Hours Worked</th></tr>
 		{% elif qtype == 'annualwages' %}
-			<tr><th>Employee Name</th><th>Position</th><th>Annual Salary</th></tr>
+		<tr><th>Employee Name</th><th>Position</th><th>Annual Salary</th></tr>
 		{% elif qtype == 'positionstats' %}
-			<tr><th>Year</th><th>Position</th><th>Hours Per Week</th><th>Amount Paid</th></tr>
+		<tr><th>Year</th><th>Position</th><th>Hours Per Week</th><th>Amount Paid</th></tr>
 		{% endif %}
 		{% for person in staff %}
-			<tr>
+		<tr>
 			{% if person.year %}
-				<td> {{ person.year }} </td>
+			<td> {{ person.year }} </td>
 			{% endif %}
 			{% if person.quart_num %}
-				<td> {{ person.quart_num }} </td>
+			<td> {{ person.quart_num }} </td>
 			{% endif %}
 			{% if person.f_name%}
-				<td>{{ person.f_name }} {{ person.l_name }}</td>
+			<td>{{ person.f_name }} {{ person.l_name }}</td>
 			{% endif %}
 			{% if person.position %}
-				<td> {{ person.position }} </td>
+			<td> {{ person.position }} </td>
 			{% endif %}
 			{% if person.weekly_hours %}
-				<td> {{ person.weekly_hours }} </td>
+			<td> {{ person.weekly_hours }} </td>
 			{% endif %}
 			{% if person.hours_in_quarter %}
-				<td> {{ person.hours_in_quarter }} </td>
+			<td> {{ person.hours_in_quarter }} </td>
 			{% endif %}
 			{% if person.hourly_wage %}
-				<td> {{ "$%.2f"|format(person.hourly_wage) }} </td>
+			<td> {{ "$%.2f"|format(person.hourly_wage) }} </td>
 			{% endif %}
 			{% if person.annual_salary %}
-				<td> {{ "$%.2f"|format(person.annual_salary) }} </td>
+			<td> {{ "$%.2f"|format(person.annual_salary) }} </td>
 			{% endif %}
-			</tr>
+		</tr>
 		{% endfor %}
-		</table>
+	</table>
 	{% else %}
-		<h3>Select your query:</h3>
-		<ul>
-			<li><a href="/staff/query/all">All Staff</a></li>
-			<li><a href="/staff/query/employeeofthequarter">Employee of the Quarter Awards</a></li>
-			<li><a href="/staff/query/annualwages">Staff Annual Income</a></li>
-			<li><a href="/staff/query/positionstats">Position Statistics</a></li>
-		</ul><br>
-		<h3>Find by employee ID number</h3>
-		<form name=empidsearch>
-			<input name=search size=13><br>
-			<input type=button name=submit value='Search' onclick='empidsearchlink()'>
-		</form><br>
-		<h3>Find by employee name</h3>
-		<form name=empnamesearch>
-			<input name=search size=13><br>
-			<input type=button name=submit value='Search' onclick='empnamesearchlink()'>
-		</form><br>
-		<h3>Search by staff position</h3>
-		<form name=positionsearch>
-			<input name=search size=13><br>
-			<input type=button name=submit value='Search' onclick='positionsearchlink()'>
-		</form><br>
-		<script>
-			function empidsearchlink() {
-				var link = "/staff/search/empid/";
-				link += document.empidsearch.search.value;
-				window.location.href=link;
-			}
-			function empnamesearchlink() {
-                var link = "/staff/search/empname/";
-				link += document.empnamesearch.search.value;
-				window.location.href=link;
-            }
-			function positionsearchlink() {
-                var link = "/staff/search/position/";
-				link += document.positionsearch.search.value;
-				window.location.href=link;
-            }
-		</script>
+	<h3>Select your query:</h3>
+	<ul>
+		<li><a href="/staff/query/all">All Staff</a></li>
+		<li><a href="/staff/query/employeeofthequarter">Employee of the Quarter Awards</a></li>
+		<li><a href="/staff/query/annualwages">Staff Annual Income</a></li>
+		<li><a href="/staff/query/positionstats">Position Statistics</a></li>
+	</ul><br>
+	<h3>Find by employee ID number</h3>
+	<form name=empidsearch>
+		<input name=search size=13><br>
+		<input type=button name=submit value='Search' onclick='empidsearchlink()'>
+	</form><br>
+	<h3>Find by employee name</h3>
+	<form name=empnamesearch>
+		<input name=search size=13><br>
+		<input type=button name=submit value='Search' onclick='empnamesearchlink()'>
+	</form><br>
+	<h3>Search by staff position</h3>
+	<form name=positionsearch>
+		<input name=search size=13><br>
+		<input type=button name=submit value='Search' onclick='positionsearchlink()'>
+	</form><br>
+	<script>
+		function empidsearchlink() {
+		var link = "/staff/search/empid/";
+		link += document.empidsearch.search.value;
+		window.location.href=link;
+		}
+		function empnamesearchlink() {
+		var link = "/staff/search/empname/";
+		link += document.empnamesearch.search.value;
+		window.location.href=link;
+		}
+		function positionsearchlink() {
+		var link = "/staff/search/position/";
+		link += document.positionsearch.search.value;
+		window.location.href=link;
+		}
+	</script>
 	{% endif %}
+
+	<!-- Footer -->
+	<footer class="pagefooter">
+		<p style="background-color: darkgrey; text-align: center;">
+			<class ="centertext"> &#11835 &emsp; Created by the BLRST Co. &emsp; &#11835 <br>
+		</p>
+	</footer>
+
 </body>
 </html>
