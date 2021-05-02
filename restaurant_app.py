@@ -1,3 +1,14 @@
+import sys
+import subprocess
+import pkg_resources
+
+required = {'pyodbc', 'flask'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+
+if missing:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", *missing])
+
 from flask import Flask, render_template
 import pyodbc
 import re
@@ -6,7 +17,7 @@ app = Flask(__name__)
 
 def querydb(querystring, commit=False, *args):
     result = []
-    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='LAPTOP-A7VIMRGT', database='Restaurant', trusted_connection='yes')
+    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server=server_name, database='Restaurant', trusted_connection='yes')
     cursor = conn.cursor()
     cursor.execute(querystring, *args)
     if not commit:
@@ -288,4 +299,21 @@ def modmenuquery(coursetype, dish, edittype, edit):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    fail = False
+    server_name = input("\n\nEnter your the name of your server in Microsoft SQL\n\n\t")
+    try:
+        conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server=server_name, trusted_connection='yes')
+        conn.close()
+    except Exception:
+        fail = True
+        print("\nCannot connect to server.\nEnsure that the server name is valid.\n")
+    if not fail:
+        try:
+            conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server=server_name, database='Restaurant', trusted_connection='yes')
+            conn.close()
+        except Exception:
+            fail = True
+            print("\nDatabase has not been created.\n")
+        
+    if not fail:
+        app.run(debug=False)
