@@ -1,64 +1,424 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>BLRST Restaurant</title>
-</head>
-<body>
-	<h1> Restaurant Finance </h1><br>
-	<form name=select>
-		<h4>Year</h4>
-		<select name=year>
-			{% for year in years %}
-				<option value={{ year.year }}>{{ year.year }}</option>
-			{% endfor %}
-		</select><br>
-		<h4>Quarter</h4>
-		<select name=quarter onChange='changeWeeks(this.value)'>
-			<option value=0>All</option>
-			<option value=1> 1 </option>
-			<option value=2> 2 </option>
-			<option value=3> 3 </option>
-			<option value=4> 4 </option>
-		</select><br>
-		<h4>Week</h4>
-		<select name=week>
-			<option value=0>All</option>
-		</select><br>
-		<input type=button name=submit value='Search' onclick='financequerylink()'>
-	</form><br>
-	{% if records %}
-		<table>
-		<tr><th>Year</th><th>Week</th><th>Income</th><th>Expenditures</th></tr>
-		{% for week in records %}
-			<tr><td> {{ week.year }} </td><td> {{ week.week_num }} </td>
-			<td> {{ "$%.2f"|format(week.income) }} </td><td> {{ "$%.2f"|format(week.expenditures) }} </td></tr>
-		{% endfor %}
-		</table>
-	{% endif %}
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 	<script>
-		var weeksByQuarter = {
-			1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-			2: [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
-			3: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36 ,37, 38, 39],
-			4: [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]
-		};
-		function changeWeeks(qnum) {
-			var optionstr = "<option value=0>All</option>";
-            if (qnum > 0) {
-                for (var week in weeksByQuarter[qnum]) {
-                    optionstr += "<option value=" + weeksByQuarter[qnum][week] + ">" + weeksByQuarter[qnum][week] + "</option>";
-                }
-            }
-			document.select.week.innerHTML = optionstr;
-        }
-		
-		function financequerylink() {
-            var link = "/finance/query/";
-			link += document.select.year.value +"/";
-			link += document.select.quarter.value +"/";
-			link += document.select.week.value +"/";
-			window.location.href = link;
-        }
+		$(document).ready(function() {
+		$(".sectiondetails").hide();
+		$(".sectionhead").click(function() {
+		$(this).next(".sectiondetails").slideToggle('fast');
+		});
+		});
 	</script>
+
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+			background-color: lightslategrey;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			font-family: "Playfair Display";
+			letter-spacing: 5px;
+			font-weight: bold;
+		}
+
+		#menuholder {
+			background-color: darkgrey;
+			width: 170px;
+			font-size: 13pt;
+			font-family: Georgia;
+			text-align: center;
+			position: fixed;
+			border: 3px solid lightslategrey;
+			top: 117px;
+			left: 30px;
+		}
+
+		.sectionhead {
+			background-color: aliceblue;
+			font-weight: bold;
+			color: cadetblue;
+			text-transform: uppercase;
+			border: 1px solid;
+			letter-spacing: 1px;
+			padding: 5px;
+			margin: 5px;
+			cursor: help;
+		}
+
+		.sectiondetails {
+			background-color: antiquewhite;
+			font-size: 11.5px;
+			display: none;
+			padding: 3px;
+		}
+
+		.sectiondetails a {
+			color: darkolivegreen;
+		}
+
+		.sectiondetails a:hover {
+			color: chocolate;
+		}
+
+		.tab {
+			display: inline-block;
+			margin-left: 700px;
+		}
+
+		.imgcontainer {
+			position: relative;
+			text-align: center;
+		}
+
+		.overlaytext {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 55px;
+			font-weight: bold;
+			opacity: 0.85;
+			color: cadetblue;
+			text-shadow: 2px 2px 6px #000000, -2px -2px 6px #000000;
+			border: 3px solid cadetblue;
+			padding: 10px;
+			box-shadow: -3px -3px 11px #000, 3px 3px 11px #000;
+		}
+
+		a:link, a:visited {
+			border: 2px solid #184562;
+			background-color: #f0f8ff;
+			font-weight: bold;
+			color: darkolivegreen;
+			padding: 15px 25px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		a:hover, a:active {
+			border: 1px solid #000;
+		}
+
+		.pagefooter {
+			background: darkgrey;
+			padding: 13px;
+		}
+
+		.centertext {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.center {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.button {
+			background-color: none;
+			color: darkolivegreen;
+			transition: all 0.7s ease;
+		}
+
+		.button:hover {
+			color: #132c33;
+			border: 3px solid #184562;
+			transition: all 0.7s ease;
+			letter-spacing: 3px;
+			box-shadow: inset 500px 0 0 0px #bdd2b6;
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<!-- heading bar -->
+	<div class="heading-bar" style="padding-top: 0.1px;">
+		<div class="padded-heading-bar" style="letter-spacing: 3px; font-size: 20px; font-family: Britannic;">
+			<p style="text-align: center; margin-left: 0%; margin-right: 0%; color: darkolivegreen;">
+				<a href="#finances" class="heading-button">BLRST Finances</a>
+				<span class="tab"></span>
+				<a href="#details" class="heading-button">Details</a>
+				<a href="#queries" class="heading-button">Queries</a>
+				<a href="#disclaimer" class="heading-button">Disclaimer</a>
+			</p>
+		</div>
+	</div>
+
+	<!-- heading image -->
+	<div class="imgcontainer" id="finances">
+		<img src="https://images.unsplash.com/photo-1545670723-196ed0954986?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1952&q=80"
+			 alt="Finances" width="1450" height="800">
+		<div class="overlaytext">Finance Queries</div>
+	</div>
+
+	<!-- page content -->
+	<div class="page-content" style="max-width:1000px; padding-left:250px;">
+
+		<br><br><br>
+
+		<div class="section-content" id="details" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+			<h1 style="color: #132c33;"><center><u>Details</u></center></h1><br>
+			<p>
+				<center>
+					<b>The following lists a brief description of the functionality of each of the queries available to you here.</b>
+					<br><br><br>
+					<table class="center" style="width: 95%;">
+						<col align="left">
+						<col align="center">
+						<col align="left">
+						<tr>
+							<td>&emsp;&bull;&emsp;<i>Yearly Finances</i></td>
+							<td>&emsp; &rarr; &emsp; &emsp;</td>
+							<td>To view the yearly finance details of the restarurant, choose only the year in question.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&bull;&emsp;<i>Quarterly Finances</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>To view the quarterly finance details of the restarurant, choose the year and quarter in question.</td>
+						</tr>
+						<tr>
+							<td>&emsp;&bull;&emsp;<i>Weekly Finances</i></td>
+							<td>&emsp; &rarr; &emsp;</td>
+							<td>To view the weekly finance details of the restarurant, choose the year, quarter, and week in question.</td>
+						</tr>
+					</table>
+					<br><br><br>
+				</center>
+			</p>
+		</div>
+
+		<br><br><br>
+
+		<div class="section-content" id="queries" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+			<h1 style="color: #132c33;"><center><u>Queries</u></center></h1><br>
+			<p>
+                <center>
+
+                    <b style="font-size:13pt; letter-spacing: 1px;">&mdash; Restaurant Finances: &mdash;</b>
+                    <br><br><br>
+
+                    <table class="center" style="width: 30%;">
+                        <col align="center">
+                        <col align="center">
+                        <col align="center">
+
+                        <form name=select>
+                            <tr>
+                                <td>
+                                    &emsp;Select Year:
+                                </td>
+                                <td>
+                                    &emsp;
+                                </td>
+                                <td>
+                                    <select name=year>
+                                        {% for year in years %}
+                                        <option value={{ year.year }}>{{ year.year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    &emsp;Select Quarter:
+                                </td>
+                                <td>
+                                    &emsp;
+                                </td>
+                                <td>
+                                    <select name=quarter onChange='changeWeeks(this.value)'>
+                                        <option value=0>All</option>
+                                        <option value=1> 1 </option>
+                                        <option value=2> 2 </option>
+                                        <option value=3> 3 </option>
+                                        <option value=4> 4 </option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    &emsp;Select Week:
+                                </td>
+                                <td>
+                                    &emsp;
+                                </td>
+                                <td>
+                                    <select name=week>
+                                        <option value=0>All</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th colspan="3">
+                                    <br><br>
+                                    <input type=button name=submit value='Search' onclick='financequerylink()'>
+                                </th>
+                            </tr>
+
+                        </form>
+                    </table>
+
+                    {% if records %}
+                    <br><br>
+
+                    <table>
+						<col align="center">
+						<col align="center">
+						<col align="center">
+						<col align="center">
+
+                        <tr>
+							<th>&emsp;&emsp;Year&emsp;&emsp;</th>
+							<th>&emsp;&emsp;Week&emsp;&emsp;</th>
+							<th>&emsp; &emsp;Income&emsp;&emsp;</th>
+							<th>&emsp; &emsp;Expenditures&emsp;&emsp;</th>
+                        </tr>
+                        {% for week in records %}
+                        <tr>
+							<td>&emsp;&emsp;{{ week.year }}</td>
+							<td>&emsp;&emsp;&emsp;{{ week.week_num }}</td>
+							<td>&emsp;&emsp;{{ "$%.2f"|format(week.income) }}</td>
+							<td>&emsp;&emsp;&emsp;{{ "$%.2f"|format(week.expenditures) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+
+                    <script>
+                        var weeksByQuarter = {
+                        1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                        2: [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+                        3: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36 ,37, 38, 39],
+                        4: [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]
+                        };
+                        function changeWeeks(qnum) {
+                        var optionstr = "<option value=0>All</option>";
+                        if (qnum > 0) {
+                        for (var week in weeksByQuarter[qnum]) {
+                        optionstr += "<option value=" + weeksByQuarter[qnum][week] + ">" + weeksByQuarter[qnum][week] + "</option>";
+                        }
+                        }
+                        document.select.week.innerHTML = optionstr;
+                        }
+
+                        function financequerylink() {
+                        var link = "/finance/query/";
+                        link += document.select.year.value +"/";
+                        link += document.select.quarter.value +"/";
+                        link += document.select.week.value +"/";
+                        link += "/#queries";
+                        window.location.href = link;
+                        }
+                    </script>
+
+                    <br><br><br>
+                    <table>
+                        <tr>
+                            <th colspan="3"><a class="button" href="/finance/">Return to Finance Queries</a></th>
+                        </tr>
+                    </table>
+                    <br><br><br>
+
+
+                </center>
+			</p>
+
+		</div>
+
+		<br><br><br>
+		<div class="section-content" id="disclaimer" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+			<h1 style="color: #132c33;"><center><u>Disclaimer</u></center></h1><br>
+			<p>
+				<center>
+
+					<b>WARNING:</b>
+					<br><br>
+					This restaurant prides itself in ensuring all of its staff are paid a livable wage. This may lead to the appearance of the restaurant hemorrhaging money.
+					<br>
+					Please be sure to covertly obtain funds from the bourgeoisie without their knowledge so as to keep the restaurant in business.
+					<br>
+					We hope you keep this discrete. We are watching. Thank you for your cooperation.
+					<br><br><br>
+
+				</center>
+			</p>
+		</div>
+		<br><br><br>
+
+	</div>
+
+	<!-- navigation/directory menu drop down -->
+	<div id="menuholder">
+		<p class="sectionhead">[DIRECTORY]</p>
+
+		<p class="sectionhead">HOME</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color: darkgrey; text-align:center; ">
+			Navigate here to find return to the home page. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/" style="background-color:antiquewhite;">Home Page</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">MENU</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color: darkgrey; text-align:center; ">
+			Navigate here to find our restaurant menu as well as additional queries regarding dietary restrictions. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/menu" style="background-color:antiquewhite;">Menu Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">STOCK</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color:darkgrey;">
+			Navigate here to find our restaurant's stock purchases as well as additional queries depicting a detailed breakdown of this info. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/stock" style="background-color:antiquewhite;">Stock Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">STAFF</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color:darkgrey;">
+			Navigate here to find our restaurant staff members as well as additional queries regarding employee stats. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/staff" style="background-color:antiquewhite;">Staff Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">MODIFY</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color: darkgrey; text-align:center; ">
+			Navigate here to modify menu items, ingredients, and stock items. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/modify" style="background-color:antiquewhite;">Modify Queries</a></i> <br><br>
+		</div>
+
+		<p class="sectionhead">FINANCES</p>
+		<div class="sectiondetails">
+			<hr class="solid" style="color:darkgrey;">
+			Navigate here to find our restaurant finances as well as additional queries depicting a detailed breakdown of this info. <br>
+			<hr class="solid" style="color:darkgrey;">
+			<i><a href="/finance" style="background-color:antiquewhite;">Finance Queries</a></i> <br><br>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer class="pagefooter">
+		<p style="background-color: darkgrey; text-align: center;">
+			<class ="centertext"> &#11835 &emsp; Created by the BLRST Co. &emsp; &#11835 <br>
+		</p>
+	</footer>
+
 </body>
 </html>

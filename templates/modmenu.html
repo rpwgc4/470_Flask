@@ -1,61 +1,421 @@
+<!DOCTYPE html>
 <html>
 <head>
+
     <title>BLRST Restaurant</title>
-</head>
-<body>
-    <form name=selectdish>
-        {% if message %}
-        <p>{{ message }}</p>
-        {% endif %}
-        <h3> Modify Menu </h3>
-        <h5>Course Type</h5>
-        <select name=coursetype onChange='selecttypelink()'>
-            <option value=''></option>
-            <option value='Appetizers'>Appetizers</option>
-            <option value='Soups and Salads'>Soups and Salads</option>
-            <option value='Entrees'>Entrees</option>
-            <option value='Seafood'>Seafood</option>
-            <option value="Kid's Menu">Kid's Menu</option>
-            <option value='Desserts'>Desserts</option>
-            <option value='Drinks'>Drinks</option>
-            <option value='Unassigned'>Unassigned</option>
-            <option value='Removed'>Removed</option>
-        </select><br>
-        <h5>Dishes</h5>
-        <select name=dish>
-            {% for item in menu %}
-                {% if item.course_type == course %}
-                <option value="{{ item.menu_name|safe }}">{{ item.menu_name }}</option>
-                {% endif %}
-            {% endfor %}
-        </select><br>
-        <h5>Change course type: </h5>
-        <select name=editcourse>
-            <option value='Appetizers'>Appetizers</option>
-            <option value='Soups and Salads'>Soups and Salads</option>
-            <option value='Entrees'>Entrees</option>
-            <option value='Seafood'>Seafood</option>
-            <option value="Kid's Menu">Kid's Menu</option>
-            <option value='Desserts'>Desserts</option>
-            <option value='Drinks'>Drinks</option>
-            <option value='Unassigned'>Unassigned</option>
-        </select>
-        <input type=button name=coursechangebutton value='Edit' onclick='changecourselink()'>
-    </form>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
     <script>
-        function selecttypelink() {
-            var link = '/modify/menu/';
-            link += document.selectdish.coursetype.value;
-            window.location.href = link;
-        }
-        function changecourselink() {
-            var link = '/modify/menu/';
-            link += "{{ course|safe }}/";
-            link += document.selectdish.dish.value;
-            link += '/course/';
-            link += document.selectdish.editcourse.value;
-            window.location.href = link;
-        }
+        $(document).ready(function() {
+        $(".sectiondetails").hide();
+        $(".sectionhead").click(function() {
+        $(this).next(".sectiondetails").slideToggle('fast');
+        });
+        });
     </script>
+
+    <style>
+        body {
+            font-family: "Times New Roman", Georgia, Serif;
+            background-color: lightslategrey;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+            font-weight: bold;
+        }
+
+        #menuholder {
+            background-color: darkgrey;
+            width: 170px;
+            font-size: 13pt;
+            font-family: Georgia;
+            text-align: center;
+            position: fixed;
+            border: 3px solid lightslategrey;
+            top: 117px;
+            left: 30px;
+        }
+
+        .sectionhead {
+            background-color: aliceblue;
+            font-weight: bold;
+            color: cadetblue;
+            text-transform: uppercase;
+            border: 1px solid;
+            letter-spacing: 1px;
+            padding: 5px;
+            margin: 5px;
+            cursor: help;
+        }
+
+        .sectiondetails {
+            background-color: antiquewhite;
+            font-size: 11.5px;
+            display: none;
+            padding: 3px;
+        }
+
+        .sectiondetails a {
+            color: darkolivegreen;
+        }
+
+        .sectiondetails a:hover {
+            color: chocolate;
+        }
+
+        .tab {
+            display: inline-block;
+            margin-left: 700px;
+        }
+
+        .imgcontainer {
+            position: relative;
+            text-align: center;
+        }
+
+        .overlaytext {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 55px;
+            font-weight: bold;
+            opacity: 0.85;
+            color: cadetblue;
+            text-shadow: 2px 2px 6px #000000, -2px -2px 6px #000000;
+            border: 3px solid cadetblue;
+            padding: 10px;
+            box-shadow: -3px -3px 11px #000, 3px 3px 11px #000;
+        }
+
+        a:link, a:visited {
+            border: 2px solid #184562;
+            background-color: #f0f8ff;
+            font-weight: bold;
+            color: darkolivegreen;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+            border: 1px solid #000;
+        }
+
+        .pagefooter {
+            background: darkgrey;
+            padding: 13px;
+        }
+
+        .centertext {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button {
+            background-color: none;
+            color: darkolivegreen;
+            transition: all 0.7s ease;
+        }
+
+        .button:hover {
+            color: #132c33;
+            border: 3px solid #184562;
+            transition: all 0.7s ease;
+            letter-spacing: 3px;
+            box-shadow: inset 500px 0 0 0px #bdd2b6;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- heading bar -->
+    <div class="heading-bar" style="padding-top: 0.1px;">
+        <div class="padded-heading-bar" style="letter-spacing: 3px; font-size: 20px; font-family: Britannic;">
+            <p style="text-align: center; margin-left: 0%; margin-right: 0%; color: darkolivegreen;">
+                <a href="#modify" class="heading-button">BLRST Modify</a>
+                <span class="tab"></span>
+                <a href="#details" class="heading-button">Details</a>
+                <a href="#queries" class="heading-button">Queries</a>
+                <a href="#disclaimer" class="heading-button">Disclaimer</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- heading image -->
+    <div class="imgcontainer" id="modify">
+        <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80"
+             alt="Modify" width="1450" height="800">
+        <div class="overlaytext">Modify Queries</div>
+    </div>
+
+    <!-- page content -->
+    <div class="page-content" style="max-width:1000px; padding-left:250px;">
+
+        <br><br><br>
+
+        <div class="section-content" id="details" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>Details</u></center></h1><br>
+            <p>
+                <center>
+                    <b>The following lists a brief description of the functionality of each of the queries available to you here.</b>
+                    <br><br><br>
+                    <table class="center" style="width: 85%;">
+                        <col align="left">
+                        <col align="center">
+                        <col align="left">
+                        <tr>
+                            <td>&emsp;&bull;&emsp;<i>Add Dishes</i></td>
+                            <td>&emsp; &rarr; &emsp; &emsp;</td>
+                            <td>Select this query to add a dish to the restaurant menu.</td>
+                        </tr>
+                        <tr>
+                            <td>&emsp;&bull;&emsp;<i>Remove Dishes</i></td>
+                            <td>&emsp; &rarr; &emsp;</td>
+                            <td>Select this query to remove a dish from the restaurant menu.</td>
+                        </tr>
+                        <tr>
+                            <td>&emsp;&bull;&emsp;<i>Add Stock</i></td>
+                            <td>&emsp; &rarr; &emsp;</td>
+                            <td>Select this query to add a stock item for the restaurant to start purchasing.</td>
+                        </tr>
+                        <tr>
+                            <td>&emsp;&bull;&emsp;<i>Remove Stock</i>&emsp;</td>
+                            <td>&emsp; &rarr; &emsp;</td>
+                            <td>Select query this to remove a stock item for the restaurant to stop purchasing.</td>
+                        </tr>
+                        <tr>
+                            <td>&emsp;&bull;&emsp;<i>Modify Dish Ingredients</i></td>
+                            <td>&emsp; &rarr; &emsp;</td>
+                            <td>Select this query to change the ingredients of a dish.</td>
+                        </tr>
+                        <tr>
+                            <td>&emsp;&bull;&emsp;<i>Modify Menu</i></td>
+                            <td>&emsp; &rarr; &emsp;</td>
+                            <td>Select this query to change the course type of a dish.</td>
+                        </tr>
+                    </table>
+                    <br><br><br>
+                </center>
+            </p>
+        </div>
+
+        <br><br><br>
+
+        <div class="section-content" id="queries" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>Queries</u></center></h1><br>
+            <p>
+                <center>
+
+                    <b style="font-size:13pt; letter-spacing: 1px;">&mdash; Modify Menu: &mdash;</b>
+                    <br><br><br>
+
+                    {% if message %}
+                    <b style="font-size:13pt; letter-spacing: 1px;">{{ message }}</b>
+                    <br><br><br>
+                    {% endif %}
+
+                    <table class="center" style="width: 50%;">
+                        <col align="center">
+                        <col align="center">
+                        <col align="center">
+
+                        <form name=selectdish>
+                            <tr>
+                                <td>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Current Course Type:
+                                </td>
+                                <td>
+                                    &emsp;&emsp;
+                                </td>
+                                <td>
+                                    <select name=coursetype onChange='selecttypelink()'>
+                                        <option value=''></option>
+                                        <option value='Appetizers'>Appetizers</option>
+                                        <option value='Soups and Salads'>Soups and Salads</option>
+                                        <option value='Entrees'>Entrees</option>
+                                        <option value='Seafood'>Seafood</option>
+                                        <option value="Kid's Menu">Kid's Menu</option>
+                                        <option value='Desserts'>Desserts</option>
+                                        <option value='Drinks'>Drinks</option>
+                                        <option value='Unassigned'>Unassigned</option>
+                                        <option value='Removed'>Removed</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Select Dish:
+                                </td>
+                                <td>
+                                    &emsp;&emsp;
+                                </td>
+                                <td>
+                                    <select name=dish>
+                                        {% for item in menu %}
+                                        {% if item.course_type == course %}
+                                        <option value="{{ item.menu_name|safe }}">{{ item.menu_name }}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;New Course Type:
+                                </td>
+                                <td>
+                                    &emsp;&emsp;
+                                </td>
+                                <td>
+                                    <select name=editcourse>
+                                        <option value='Appetizers'>Appetizers</option>
+                                        <option value='Soups and Salads'>Soups and Salads</option>
+                                        <option value='Entrees'>Entrees</option>
+                                        <option value='Seafood'>Seafood</option>
+                                        <option value="Kid's Menu">Kid's Menu</option>
+                                        <option value='Desserts'>Desserts</option>
+                                        <option value='Drinks'>Drinks</option>
+                                        <option value='Unassigned'>Unassigned</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th colspan="3">
+                                    <br><br>
+                                    <input type=button name=coursechangebutton value='Change' onclick='changecourselink()'>
+                                </th>
+                            </tr>
+
+                        </form>
+                    </table>
+
+                    <script>
+                        function selecttypelink() {
+                            var link = '/modify/menu/';
+                            link += document.selectdish.coursetype.value;
+                            link += "/#queries";
+                            window.location.href = link;
+                        }
+                        function changecourselink() {
+                            var link = '/modify/menu/';
+                            link += "{{ course|safe }}/";
+                            link += document.selectdish.dish.value;
+                            link += '/course/';
+                            link += document.selectdish.editcourse.value;
+                            link += "/#queries";
+                            window.location.href = link;
+                        }
+                    </script>
+
+                    <br><br><br>
+                    <table>
+                        <tr>
+                            <th colspan="3"><a class="button" href="/modify/">Return to Modify Queries</a></th>
+                        </tr>
+                    </table>
+                    <br><br><br>
+
+
+                </center>
+            </p>
+
+        </div>
+
+        <br><br><br>
+        <div class="section-content" id="disclaimer" style="background-color: slategrey; color: #bdd2b6;border: 3px dotted darkslategrey;box-shadow: -5px -5px 5px slategrey, 5px 5px 5px slategrey;padding-left: 10px; padding-right: 10px;">
+            <h1 style="color: #132c33;"><center><u>Disclaimer</u></center></h1><br>
+            <p>
+                <center>
+
+                    <b>WARNING:</b>
+                    <br><br>
+                    Any changes made here are permanent and can only be undone by manually going through the reverse process.
+                    <br>
+                    Please be sure of any changes before proceeding.
+                    <br><br><br>
+
+                </center>
+            </p>
+        </div>
+        <br><br><br>
+
+    </div>
+
+    <!-- navigation/directory menu drop down -->
+    <div id="menuholder">
+        <p class="sectionhead">[DIRECTORY]</p>
+
+        <p class="sectionhead">HOME</p>
+        <div class="sectiondetails">
+            <hr class="solid" style="color: darkgrey; text-align:center; ">
+            Navigate here to find return to the home page. <br>
+            <hr class="solid" style="color:darkgrey;">
+            <i><a href="/" style="background-color:antiquewhite;">Home Page</a></i> <br><br>
+        </div>
+
+        <p class="sectionhead">MENU</p>
+        <div class="sectiondetails">
+            <hr class="solid" style="color: darkgrey; text-align:center; ">
+            Navigate here to find our restaurant menu as well as additional queries regarding dietary restrictions. <br>
+            <hr class="solid" style="color:darkgrey;">
+            <i><a href="/menu" style="background-color:antiquewhite;">Menu Queries</a></i> <br><br>
+        </div>
+
+        <p class="sectionhead">STOCK</p>
+        <div class="sectiondetails">
+            <hr class="solid" style="color:darkgrey;">
+            Navigate here to find our restaurant's stock purchases as well as additional queries depicting a detailed breakdown of this info. <br>
+            <hr class="solid" style="color:darkgrey;">
+            <i><a href="/stock" style="background-color:antiquewhite;">Stock Queries</a></i> <br><br>
+        </div>
+
+        <p class="sectionhead">STAFF</p>
+        <div class="sectiondetails">
+            <hr class="solid" style="color:darkgrey;">
+            Navigate here to find our restaurant staff members as well as additional queries regarding employee stats. <br>
+            <hr class="solid" style="color:darkgrey;">
+            <i><a href="/staff" style="background-color:antiquewhite;">Staff Queries</a></i> <br><br>
+        </div>
+
+        <p class="sectionhead">MODIFY</p>
+        <div class="sectiondetails">
+            <hr class="solid" style="color: darkgrey; text-align:center; ">
+            Navigate here to modify menu items, ingredients, and stock items. <br>
+            <hr class="solid" style="color:darkgrey;">
+            <i><a href="/modify" style="background-color:antiquewhite;">Modify Queries</a></i> <br><br>
+        </div>
+
+        <p class="sectionhead">FINANCES</p>
+        <div class="sectiondetails">
+            <hr class="solid" style="color:darkgrey;">
+            Navigate here to find our restaurant finances as well as additional queries depicting a detailed breakdown of this info. <br>
+            <hr class="solid" style="color:darkgrey;">
+            <i><a href="/finance" style="background-color:antiquewhite;">Finance Queries</a></i> <br><br>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pagefooter">
+        <p style="background-color: darkgrey; text-align: center;">
+            <class ="centertext"> &#11835 &emsp; Created by the BLRST Co. &emsp; &#11835 <br>
+        </p>
+    </footer>
+
 </body>
 </html>
