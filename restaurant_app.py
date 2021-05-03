@@ -1,3 +1,14 @@
+import sys
+import subprocess
+import pkg_resources
+
+required = {'pyodbc', 'flask'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+
+if missing:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", *missing])
+
 from flask import Flask, render_template
 import pyodbc
 import re
@@ -6,18 +17,9 @@ app = Flask(__name__)
 
 def querydb(querystring, commit=False, *args):
     result = []
-    conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server='DESKTOP-R85SSOT', database='Restaurant', trusted_connection='yes')
+conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server=server_name, database='Restaurant', trusted_connection='yes')
     cursor = conn.cursor()
-    if len(args) == 0:
-        cursor.execute(querystring)
-    elif len(args) == 1:
-        cursor.execute(querystring, args[0])
-    elif len(args) == 2:
-        cursor.execute(querystring, args[0], args[1])
-    elif len(args) == 3:
-        cursor.execute(querystring, args[0], args[1], args[2])
-    elif len(args) == 9:
-        cursor.execute(querystring, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
+    cursor.execute(querystring, *args)
     if not commit:
         row = cursor.fetchone()
         while row:
@@ -297,4 +299,21 @@ def modmenuquery(coursetype, dish, edittype, edit):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    fail = False
+    server_name = input("\n\nEnter your the name of your server in Microsoft SQL\n\n\t")
+    try:
+        conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server=server_name, trusted_connection='yes')
+        conn.close()
+    except Exception:
+        fail = True
+        print("\nCannot connect to server.\nEnsure that the server name is valid.\n")
+    if not fail:
+        try:
+            conn = pyodbc.connect(driver='{SQL Server Native Client 11.0}', server=server_name, database='Restaurant', trusted_connection='yes')
+            conn.close()
+        except Exception:
+            fail = True
+            print("\nDatabase has not been created.\n")
+        
+    if not fail:
+        app.run(debug=False)
